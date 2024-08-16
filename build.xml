@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="okmindmap" basedir="." default="deploy">
+	<property file="build.properties"/>
+	<property name="src.dir" value="src"/>
+	<property name="web.dir" value="WebContent"/>
+	<property name="build.dir" value="${web.dir}/WEB-INF/classes"/>
+	<property name="name" value="okmindmap"/>
+	<property name="test.dir" value="test"/>
+	
+	<condition property="maven.executable" value="mvn.bat" else="mvn">
+        <os family="windows" />
+    </condition>
+    <condition property="maven.executable" value="mvn.bat" else="mvn">
+        <os family="unix" />
+    </condition>
+    
+	<condition property="isWindows">
+        <os family="windows" />
+    </condition>
+    <condition property="isUnix">
+		<os family="unix" />
+    </condition>
+	<condition property="isMac">
+	    <os family="mac" />
+	</condition>
+	
+	<path id="master-classpath">
+		<fileset dir="${web.dir}/WEB-INF/lib">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${appserver.lib}">
+			<include name="servlet*.jar"/>
+			<include name="jsp*.jar"/>
+		</fileset>
+		<pathelement path="${build.dir}"/>
+	</path>
+	
+	<target name="usage">
+		<echo message=""/>
+		<echo message="${name} build file"/>
+		<echo message="-----------------------------------"/>
+		<echo message=""/>
+		<echo message="Available targets are:"/>
+		<echo message=""/>
+		<echo message="build     		 --> Build the application"/>
+		<echo message="deploy    		 --> Deploy application as directory"/>
+		<echo message="deploywar 		 --> Deploy application as a WAR file"/>
+		<echo message="okmindmap-install --> Install application in Tomcat"/>
+		<echo message="okmindmap-reload  --> Reload application in Tomcat"/>
+		<echo message="okmindmap-start   --> Start Tomcat application"/>
+		<echo message="okmindmapstop     --> Stop Tomcat application"/>
+		<echo message="tomcat-list       --> List Tomcat applications"/>
+		<echo message="tomcat-start      --> Start Tomcat server"/>
+		<echo message="tomcat-stop       --> Stop Tomcat server"/>
+		<echo message=""/>
+	</target>
+	
+	<target name="build" description="Compile main source tree java files">
+		<mkdir dir="${build.dir}"/>
+		<javac destdir="${build.dir}" source="1.8" target="1.8" debug="true"
+			   deprecation="false" optimize="false" failonerror="true"
+			   encoding="UTF-8" includeantruntime="false">
+			<src path="${src.dir}"/>
+			<classpath refid="master-classpath"/>
+		</javac>
+		<copy todir="${build.dir}" preservelastmodified="true">
+			<fileset dir="${src.dir}">
+				<include name="**/*.xml"/>
+				<include name="**/*.xsl"/>
+				<include name="**/*.png"/>
+				<include name="**/*.js"/>
+				<include name="**/*.css"/>
+				<include name="**/*.properties"/>
+				<include name="**/*.pptx"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="clean" description="Clean output directories">
+		<delete includeEmptyDirs="true">
+			<fileset dir="${build.dir}">
+				<include name="**/*.class"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="deploy" depends="build, compressJS" description="Deploy application">
+		<copy todir="${deploy.path}/${name}" preservelastmodified="true">
+			<fileset dir="${web.dir}">
+				<include name="**/*.*"/>
+				<include name="**/**"/>
+				<exclude name="publish/**"/>
+				<exclude name="META-INF/**"/>
+				<exclude name="layout/**"/>
+				<exclude name="line/**"/>
+				<exclude name="node/**"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="undeploy" description="Un-Deploy application">
+		<delete includeEmptyDirs="true">
+			<fileset dir="${deploy.path}/${name}">
+				<include name="**/*.*"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="deploy-war" depends="build" description="Deploy application as a WAR file">
+		<war destfile="${name}.war" webxml="${web.dir}/WEB-INF/web.xml">
+			<fileset dir="${web.dir}">
+				<include name="**/*.*"/>
+			</fileset>
+		</war>
+		<copy todir="${deploy.path}" preservelastmodified="true">
+			<fileset dir=".">
+				<include name="*.war"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="concatJS" if="isUnix">
+		<echo message="Came into concatJS" />
+	    <delete file="${web.dir}/mayonnaise-min.js"/>
+	    <concat destfile="${web.dir}/publish/mayonnaise.js">
+	        <fileset dir="${web.dir}" includes="*.js"/>
+	        <fileset dir="${web.dir}/layout" includes="*.js"/>
+	        <fileset dir="${web.dir}/node" includes="jNode.js"/>
+	        <fileset dir="${web.dir}/node" includes="jMindMapNode.js"/>
+	        <fileset dir="${web.dir}/node" includes="jRect.js"/>
+	        <fileset dir="${web.dir}/node" includes="jEllipse.js"/>
+	        <fileset dir="${web.dir}/node" includes="jCustom.js"/>
+	        <fileset dir="${web.dir}/node" includes="jFishNode.js"/>
+	        <fileset dir="${web.dir}/node" includes="jBrainNode.js"/>
+	        <fileset dir="${web.dir}/node" includes="jSunburstNode.js"/>
+	        <fileset dir="${web.dir}/node" includes="jZoomableTreemapNode.js"/>
+	        <fileset dir="${web.dir}/node" includes="jPadletNode.js"/>
+	    	<fileset dir="${web.dir}/node" includes="jPartitionNode.js"/>
+	    	<fileset dir="${web.dir}/node" includes="jCardNode.js"/>
+	        <fileset dir="${web.dir}/line" includes="jLine.js"/>
+	        <fileset dir="${web.dir}/line" includes="jLineBezier.js"/>
+	        <fileset dir="${web.dir}/line" includes="jLineStraight.js"/>
+	        <fileset dir="${web.dir}/line" includes="jLineStraightDashed.js"/>
+	        <fileset dir="${web.dir}/line" includes="jLinePolygonal.js"/>
+	        <fileset dir="${web.dir}/line" includes="jLinePolygonal2.js"/>
+	        <fileset dir="${web.dir}/line" includes="jLineFish.js"/>
+	        <fileset dir="${web.dir}/line" includes="ArrowLink.js"/>
+	        <fileset dir="${web.dir}/line" includes="CurveArrowLink.js"/>
+	        <fileset dir="${web.dir}/line" includes="RightAngleArrowLink.js"/>
+	    </concat>
+	</target>
+	<!--
+	<target name="concatPluginJS" if="isUnix">
+		<echo message="Came into concatPluginJS" />
+	    <delete file="${web.dir}/plgin-min.js"/>
+	    <concat destfile="${web.dir}/publish/plugin.js">
+	        <fileset dir="${web.dir}/plugin" includes="*.js"/>
+	    </concat>
+	</target>
+	-->
+	<target name="compressJS-windows" if="isWindows">
+	    <echo message="Came into the Windows target" />
+		<exec executable="cmd" dir="${web.dir}/publish">
+			<arg line="/c publish.bat"/>
+		</exec>
+	</target>
+	<target name="compressJS-unix" depends="concatJS" if="isUnix">
+	    <echo message="Came into the Unix target" />
+        <exec executable="sh" dir="${web.dir}/publish">
+            <arg line=" publish.sh" />
+        </exec>
+    </target>
+    <target name="compressJS" depends="compressJS-windows, compressJS-unix">
+	</target>
+	
+	<!-- ============================================================== -->
+	<!-- Database                                                       -->
+	<!-- ============================================================== -->
+	
+	<target name="db-create-tables">
+		<echo message="CREATE TABLES USING: ${jdbc.driverClassName} ${db.url}"/>
+		<sql driver="${jdbc.driverClassName}"
+			 url="${jdbc.url}"
+			 userid="${jdbc.username}"
+			 password="${jdbc.password}"
+			 onerror="continue"
+			 src="db/${jdbc.database}/create_tables.sql">
+			<classpath refid="master-classpath"/>
+		</sql>
+	</target>
+	
+	<target name="db-create-functions">
+		<echo message="CREATE FUNCTIONS USING: ${jdbc.driverClassName} ${db.url}"/>
+		<sql driver="${jdbc.driverClassName}"
+			 url="${jdbc.url}"
+			 userid="${jdbc.username}"
+			 password="${jdbc.password}"
+			 onerror="continue"
+			 src="db/${jdbc.database}/create_functions.sql">
+			<classpath refid="master-classpath"/>
+		</sql>
+	</target>
+	
+	<target name="db-load-data">
+		<echo message="LOAD DATA USING: ${db.driver} ${db.url}"/>
+		<sql driver="${jdbc.driverClassName}"
+			 url="${jdbc.url}"
+			 userid="${jdbc.username}"
+			 password="${jdbc.password}"
+			 onerror="continue"
+			 src="db/${jdbc.database}/load_data.sql">
+			<classpath refid="master-classpath"/>
+		</sql>
+	</target>
+	
+	<!-- ============================================================== -->
+	<!-- JUnit Test                                                     -->
+	<!-- ============================================================== -->
+	
+	<target name="buildtests" description="Compile test tree java files">
+		<mkdir dir="${build.dir}"/>
+		<javac destdir="${build.dir}" source="1.6" target="1.6" debug="true"
+			   deprecation="false" optimize="false" failonerror="true"
+			   encoding="UTF-8">
+		<src path="${test.dir}"/>
+		<classpath refid="master-classpath"/>
+		</javac>
+	</target>
+	
+	<target name="tests" depends="build, buildtests" description="Run tests">
+		<junit printsummary="on" fork="false" haltonfailure="false" failureproperty="tests.failed" showoutput="true">
+			<classpath refid="master-classpath"/>
+			<formatter type="brief" usefile="false"/>
+			<batchtest>
+				<fileset dir="${build.dir}">
+					<include name="**/*Tests.*"/>
+				</fileset>
+			</batchtest>
+		</junit>
+		<fail if="tests.failed">
+			tests.failed=${tests.failed}
+			***********************************************************
+			***********************************************************
+			**** One or more tests failed! Check the output ... ****
+			***********************************************************
+			***********************************************************
+		</fail>
+	</target>
+	
+	
+	
+	<!-- ============================================================== -->
+	<!-- Tomcat tasks - remove these if you don't have Tomcat installed -->
+	<!-- ============================================================== -->
+	<path id="catalina-ant-classpath">
+		<!-- We need the Catalina jars for Tomcat -->
+		<!-- * for other app servers - check the docs -->
+		<fileset dir="${appserver.lib}">
+			<include name="catalina-ant.jar"/>
+		</fileset>
+	</path>
+	<!--
+	<taskdef name="install" classname="org.apache.catalina.ant.InstallTask">
+		<classpath refid="catalina-ant-classpath"/>
+	</taskdef>
+	-->
+	
+	<taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask">
+		<classpath refid="catalina-ant-classpath"/>
+	</taskdef>
+	
+	<taskdef name="list" classname="org.apache.catalina.ant.ListTask">
+		<classpath refid="catalina-ant-classpath"/>
+	</taskdef>
+	
+	<taskdef name="start" classname="org.apache.catalina.ant.StartTask">
+		<classpath refid="catalina-ant-classpath"/>
+	</taskdef>
+	
+	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask">
+		<classpath refid="catalina-ant-classpath"/>
+	</taskdef>
+	
+	<target name="okmindmap-install" description="Install application in Tomcat">
+		<install url="${tomcat.manager.url}"
+				 username="${tomcat.manager.username}"
+				 password="${tomcat.manager.password}"
+				 path="/${name}"
+				 war="${name}"/>
+	</target>
+	
+	<target name="okmindmap-reload" depends="deploy" description="Reload application in Tomcat">
+		<reload url="${tomcat.manager.url}"
+				username="${tomcat.manager.username}"
+				password="${tomcat.manager.password}"
+				path="/${name}"/>
+	</target>
+	
+	<target name="okmindmap-start" description="Start Tomcat application">
+		<start url="${tomcat.manager.url}"
+			   username="${tomcat.manager.username}"
+			   password="${tomcat.manager.password}"
+			   path="/${name}"/>
+	</target>
+	
+	<target name="okmindmap-stop" description="Stop Tomcat application">
+		<stop url="${tomcat.manager.url}"
+			  username="${tomcat.manager.username}"
+			  password="${tomcat.manager.password}"
+			  path="/${name}"/>
+	</target>
+	
+	<target name="tomcat-list" description="List Tomcat applications">
+		<list url="${tomcat.manager.url}"
+			  username="${tomcat.manager.username}"
+			  password="${tomcat.manager.password}"/>
+	</target>
+	
+	<target name="tomcat-start" description="Start Tomcat">
+	    <java jar="${appserver.home}/bin/bootstrap.jar" fork="true">
+	        <jvmarg value="-Dcatalina.home=${appserver.home}"/>
+	    </java>
+	</target>
+	
+	<target name="tomcat-stop" description="Stop Tomcat">
+	    <java jar="${appserver.home}/bin/bootstrap.jar" fork="true">
+	        <jvmarg value="-Dcatalina.home=${appserver.home}"/>
+	        <arg line="stop"/>
+	    </java>
+	</target>
+	
+	<!-- End Tomcat tasks -->
+
+</project>
