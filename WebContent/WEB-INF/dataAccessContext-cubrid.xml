@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - Application context definition for JPetStore's data access layer.
+  - Accessed by business layer objects defined in "applicationContext.xml"
+  - (see web.xml's "contextConfigLocation").
+  -
+  - This version of the data access layer works on a combined database,
+  - using a local DataSource with DataSourceTransactionManager. It does not
+  - need any JTA support in the container: It will run as-is in plain Tomcat.
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+	<!-- Local Apache Commons DBCP DataSource that refers to a combined database -->
+	<!-- The placeholders are resolved from jdbc.properties through -->
+	<!-- the PropertyPlaceholderConfigurer in applicationContext.xml -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="validationQuery" value="select 1"/>
+        <property name="testOnBorrow" value="false"/>
+    </bean>
+    <!-- 
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>WEDORANG</value>
+		</property>
+	</bean>
+	-->
+
+	<!-- Transaction manager for a single JDBC DataSource -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- 
+	<aop:config>
+		<aop:advisor pointcut="execution(* *..MindmapService.*(..))" advice-ref="txAdvice"/>
+	</aop:config>
+	-->
+	
+	<!-- 
+	<tx:advice id="txAdvice">
+		<tx:attributes>
+			<tx:method name="save*"/>
+			<tx:method name="*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	-->
+	
+	
+	<!-- ========================= DAO DEFINITIONS: IBATIS IMPLEMENTATIONS ========================= -->
+	<!-- SqlMap setup for iBATIS Database Layer -->
+	<!-- 
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="WEB-INF/sql-map-config.xml"/>
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	 -->
+	
+	
+	
+	<!-- ========================= DAO DEFINITIONS: Spring IMPLEMENTATIONS ========================= -->
+	<bean id="mindmapDAO" class="com.okmindmap.dao.cubrid.spring.SpringMindmapDAO">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<bean id="userDAO" class="com.okmindmap.dao.cubrid.spring.SpringUserDAO">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="queueDAO" class="com.okmindmap.dao.cubrid.spring.SpringQueueDAO">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="repositoryDAO" class="com.okmindmap.dao.cubrid.spring.SpringRepositoryDAO">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="restrictDAO" class="com.okmindmap.dao.cubrid.spring.SpringRestrictDAO">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="okmindmapDAO" class="com.okmindmap.dao.cubrid.spring.SpringOKMindmapDAO">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+</beans>

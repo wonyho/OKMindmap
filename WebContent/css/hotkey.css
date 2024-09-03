@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+.table-header{
+	padding: 20px 0 0 0;
+}
+
+.hotkey-header{
+	width: 100%;
+}
+
+.hotkey-header tr{
+	width: 100%;
+	background-color: #48b87e;
+	border-bottom: 1px solid black;
+}
+
+.hotkey-header tr th{
+	text-align: left;
+	color: white;
+}
+
+.hotkey-header tr th img{
+	width: 30px;
+}
+
+.col-ti{
+	width: 55%;
+}
+.col-linux{
+	width: 18%;
+}
+
+.col-mac{
+	width: 27%;
+}
+
+.container{
+	overflow-y: scroll;
+	height: 400px;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+}
+
+.hotkey-function, .hotkey-function tr{
+	width: 100%;
+	border-bottom: 1px solid black;
+}
+
+.key-content p, .key-content-mac p, .col-ti p{
+	padding: 4px 4px;
+	margin: 0 4px 0 0;
+}
+
+.key-content p{
+	background-color: black;
+	color: white;
+	display: inline-block;
+	border-radius: 6px;
+	font-size: 14px;
+}
+
+.key-content-mac p{
+	background-color: darkblue;
+	color: white;
+	display: inline-block;
+	border-radius: 6px;
+	font-size: 14px;
+}

@@ -1,0 +1,153 @@
+html, body {
+	height: 100%;
+}
+
+body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td,
+	form, fieldset, legend, input, textarea, button, select {
+	margin: 0;
+	padding: 0;
+}
+
+body, input, textarea, select, button, table {
+	font-family: '돋움', dotum, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #454545;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	/* font-size: 12px;
+	font-weight: normal; */
+}
+
+a {
+	text-decoration: none;
+}
+
+#wrap {
+	position: relative;
+	width: auto;
+	margin: 0px 50px 0px 50px;
+}
+
+#container {
+	width: auto;
+	margin: 0 auto;
+}
+
+.err_area {
+	width: auto;
+	margin: 69px auto;
+}
+
+.err_area .hd {
+	padding-bottom: 14px;
+	border-bottom: 3px solid #666;
+}
+
+.err_area .hd .logo {
+	display: inline-block;
+	overflow: hidden;
+	width: 132px;
+	height: 34px;
+	margin-left: -1px;
+	background: url(../images/error/sp_err.png) no-repeat 0 0;
+	line-height: 99px;
+	vertical-align: top;
+	cursor: pointer;
+}
+
+.err_area .hd .logo a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.err_area .cont {
+	padding: 80px 30px 76px;
+	border: 1px solid #e5e5e5;
+	border-top: 0;
+	text-align: center;
+}
+
+.err_area .cont .bg {
+	position: relative;
+	width: 78px;
+	height: 82px;
+	margin: 0 auto 28px;
+	background: url(../images/error/sp_err.png) no-repeat -141px 0;
+}
+
+.err_area .cont .tit.v1 {
+	width: auto;
+	/* background-position: 0 -149px; */
+}
+
+.err_area .cont .tit {
+	overflow: hidden;
+	width: 231px;
+	height: auto;
+	margin: 0 auto 16px;
+	/* background: url(../images/error/sp_err.png) no-repeat 0 -87px; */
+	/* line-height: 999px; */
+}
+
+.err_area .cont .txt {
+	line-height: 18px;
+	color: #666;
+}
+
+.bt_l, .bt_l a, .bt_m, .bt_s {
+	display: inline-block;
+	position: relative;
+	width: auto;
+	height: 40px;
+	background: url(../images/error/sp_bt.png) no-repeat;
+	vertical-align: middle;
+}
+
+.bt_m {
+	width: auto;
+	height: 29px;
+	margin-right: 2px;
+	padding-top: 1px;
+}
+
+.bt_m.gray {
+	background-position: 0 -215px;
+	letter-spacing: -1px;
+}
+
+.bt_l button, .bt_m button, .bt_s button {
+	overflow: visible;
+	height: 100%;
+	padding: 0 30px 0 32px;
+	border: 1px solid #d8d5d5;
+	background: url(../images/error/bg_trans.png) repeat;
+	font-weight: bold;
+	color: #fff;
+	letter-spacing: -1px;
+	cursor: pointer;
+}
+
+.bt_m button {
+	margin-top: -1px;
+}
+
+.bt_m a, .bt_m button {
+	padding: 0 12px 0 14px;
+	font-weight: normal;
+	color: #222;
+}
+
+.bt_m.gray i {
+	background-position: 100% -215px;
+}
+
+.bt_l i, .bt_m i, .bt_s i {
+	position: absolute;
+	top: 0;
+	right: -2px;
+	width: 2px;
+	height: 100%;
+	background: url(../images/error/sp_err.png) no-repeat;
+}

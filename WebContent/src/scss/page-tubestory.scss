@@ -1,0 +1,35 @@
+.page-tubestory {
+  .text-span-primary {
+    span {
+      color: $primary;
+    }
+  }
+
+  .s2-box {
+    background-color: #f8f2f2;
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+  }
+
+  table {
+    width: 100%;
+    caption-side: bottom;
+    border-collapse: collapse;
+
+    th,td {
+      padding: 22px 10px;
+    }
+
+    th {
+      font-weight: 500;
+      background-color: #f9f9f9;
+      border-top: 1px solid #bfbfbf;
+      border-bottom: 1px solid #bfbfbf;
+    }
+
+    td {
+      border-bottom: 1px solid #bfbfbf;
+    }
+  }
+}

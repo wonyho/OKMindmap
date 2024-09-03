@@ -1,0 +1,22 @@
+# IN CASE OF WEDORANG OPER/DEV SERVER
+#repository.path=/upload/xvdev_nfst/pop/
+
+# IN CASE OF WEDORANG LOCALHOST SERVER
+repository.path=/usr/local/Tomcat/webapps/okmindmap_upload/
+
+repository.file.maxUploadSize=104857600
+repository.image.maxUploadSize=10485760
+repository.file.format=txt,doc,docx,xls,xlsx,ppt,pptx,hwp,pdf,zip,show,mp3,mp4,mov,jpg,jpeg,gif,png,bmp
+repository.image.format=jpg,jpeg,gif,png,bmp
+repository.image.limitWidth=1024
+repository.image.limitHeight=768
+repository.image.watermarkPath=/usr/local/Tomcat/webapps/okmindmap/WEB-INF/resources/watermark.png
+
+# base server path ip/doman:port
+repository.sys.baseurl=133.186.221.194
+
+# Minio
+repository.minio.host=http://localhost:9090
+repository.minio.accessKey=AKIAIOSFODNN7EXAMPLE
+repository.minio.secretKey=wJalrXUtnFEMIK7MDENGbPxRfiCYEXAMPLEKEY
+repository.minio.bucket=okmindmap-dev

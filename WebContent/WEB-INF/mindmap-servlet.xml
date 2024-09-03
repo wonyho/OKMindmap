@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   		http://www.springframework.org/schema/context
+	   		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	   		http://www.springframework.org/schema/tx
+	   		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	   		http://www.springframework.org/schema/mvc
+	   		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	   		http://www.springframework.org/schema/aop
+	   		http://www.springframework.org/schema/aop/spring-aop-3-0.xsd">
+
+	
+	<!-- ========================= DEFINITIONS OF PUBLIC CONTROLLERS ========================= -->
+<!-- 	<bean name="/test.do" class="com.okmindmap.test.TestAction"> -->
+<!-- 		<property name="mindmapDAO" ref="mindmapDAO"/> -->
+<!-- 	</bean> -->
+	
+	<bean name="/index.do" class="com.okmindmap.web.spring.IndexAction">
+		<property name="userService" ref="userService"/>
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	
+	<bean name="/main.do" class="com.okmindmap.web.spring.MainAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+
+	<bean name="/language.do" class="com.okmindmap.web.spring.LocaleAction">
+		<property name="localeResolver" ref="localeResolver"/>
+	</bean>
+
+	<bean name="/viewqueue.do" class="com.okmindmap.web.spring.QueueListAction">
+		<property name="queueService" ref="queueService"/>
+	</bean>
+	<bean name="/removequeue.do" class="com.okmindmap.web.spring.QueueListRemoveAction">
+		<property name="queueService" ref="queueService"/>
+	</bean>
+	<bean name="/mindmap/queue.do" class="com.okmindmap.web.spring.QueueAction">
+		<property name="queueService" ref="queueService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+
+	<!-- Mindmap -->
+	<bean name="/mindmap/new.do" class="com.okmindmap.web.spring.NewMindmapAction">
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="userService" ref="userService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	
+	<bean name="/mindmap/mapofmap.do" class="com.okmindmap.web.spring.MapofmapMindmapAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<bean name="/mindmap/importMap.do" class="com.okmindmap.web.spring.ImportMindmapAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	<bean name="/mindmap/importZipMaps.do" class="com.okmindmap.web.spring.ImportZipMapsAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	<bean name="/mindmap/importBookmark.do" class="com.okmindmap.web.spring.ImportBookmarkAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean>
+	<bean name="/mindmap/save.do" class="com.okmindmap.web.spring.SaveMindmapAction">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean>
+	<bean name="/mindmap/launch.do" class="com.okmindmap.web.spring.LaunchLTIAction">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+	<bean name="/mindmap/lis.do" class="com.okmindmap.web.spring.LISAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="lisService" ref="lisService"/>
+	</bean>
+	<bean name="/mindmap/lisScore.do" class="com.okmindmap.web.spring.LisScoreAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="lisService" ref="lisService"/>
+	</bean>
+	<bean name="/mindmap/lisAllScore.do" class="com.okmindmap.web.spring.LisAllScoreAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="lisService" ref="lisService"/>
+	</bean>
+	<bean name="/mindmap/lisAllNodesScore.do" class="com.okmindmap.web.spring.LisAllNodesScoreAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="lisService" ref="lisService"/>
+	</bean>
+	<bean name="/mindmap/convert.do" class="com.okmindmap.web.spring.ConvertImageAction">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+	<bean name="/mindmap/saveAs.do" class="com.okmindmap.web.spring.SaveAsMindmapAction">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="shareService" ref="shareService"/>
+	</bean>
+	<bean name="/mindmap/open.do" class="com.okmindmap.web.spring.OpenMindmapAction">
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="pricingService" ref="pricingService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean>
+	<bean name="/mindmap/changeMap.do" class="com.okmindmap.web.spring.ChangeMindmapAction">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+	<bean name="/mindmap/splitMap.do" class="com.okmindmap.web.spring.SplitMindmapAction">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="shareService" ref="shareService"/>
+	</bean>
+	<bean name="/mindmap/list.do" class="com.okmindmap.web.spring.ListMindmapAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="groupService" ref="groupService"/>
+	</bean>
+	<bean name="/mindmap/delete.do" class="com.okmindmap.web.spring.DeleteMindmapAction">
+		<property name="userService" ref="userService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean>
+	<bean name="/mindmap/mine.do" class="com.okmindmap.web.spring.MineMindmapAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/mindmap/timeline.do" class="com.okmindmap.web.spring.TimelineAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/mindmap/childnodes.do" class="com.okmindmap.web.spring.ChildNodesAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/mindmap/mappreference.do" class="com.okmindmap.web.spring.MapPreferenceAction">
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+	<bean name="/mindmap/node/path.do" class="com.okmindmap.web.spring.NodePathAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/mindmap/isDuplicateMapName.do" class="com.okmindmap.web.spring.IsDuplicationMapNameAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/mindmap/searchnodes.do" class="com.okmindmap.web.spring.SearchNodeAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<!-- Timeline -->
+	<bean name="/timeline/view.do" class="com.okmindmap.web.spring.TimelineViewAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/timeline/xml.do" class="com.okmindmap.web.spring.TimelineXMLAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/timeline/saveas.do" class="com.okmindmap.web.spring.TimelineSaveAsAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/timeline/revert.do" class="com.okmindmap.web.spring.TimelineRevertAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/timeline/list.do" class="com.okmindmap.web.spring.TimelineListAction">
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+	
+	<!-- Chat -->
+	<bean name="/chat/getMessages.do" class="com.okmindmap.web.spring.chat.ChatListAction">
+		<property name="chatService" ref="chatService"/>
+	</bean>
+	<bean name="/chat/sendMessages.do" class="com.okmindmap.web.spring.chat.ChatSendMessageAction">
+		<property name="chatService" ref="chatService"/>
+	</bean>
+	
+	
+	<!-- User -->
+	<bean name="/user/signup.do" class="com.okmindmap.web.spring.UserSignupAction">
+	</bean>
+	<bean name="/user/new.do" class="com.okmindmap.web.spring.UserAddAction">
+		<property name="userService" ref="userService"/>
+		<property name="mailService" ref="mailService"/>
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="pricingService" ref="pricingService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean>
+	<bean name="/user/validation.do" class="com.okmindmap.web.spring.UserConfirmAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/user/delete.do" class="com.okmindmap.web.spring.UserDeleteAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/user/available.do" class="com.okmindmap.web.spring.UserAvailableAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/user/update.do" class="com.okmindmap.web.spring.UserUpdateAction">
+		<property name="userService" ref="userService"/>
+		<property name="accountConnectionService" ref="accountConnectionService"/>
+	</bean>
+	<bean name="/user/login.do" class="com.okmindmap.web.spring.LoginAction">
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/user/guestlogin.do" class="com.okmindmap.web.spring.GuestLoginAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/user/logout.do" class="com.okmindmap.web.spring.LogoutAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/user/recover.do" class="com.okmindmap.web.spring.RecoverAccountAction">
+		<property name="userService" ref="userService"/>
+		<property name="mailService" ref="mailService"/>
+	</bean>
+	<bean name="/user/findusername.do" class="com.okmindmap.web.spring.FindUsernameAction">
+		<property name="userService" ref="userService"/>
+		<property name="mailService" ref="mailService"/>
+	</bean>
+	<bean name="/user/userconfig.do" class="com.okmindmap.web.spring.UserConfigAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/user/slidemaster.do" class="com.okmindmap.web.spring.UserSlideMaster">
+		<property name="userService" ref="userService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+	<bean name="/user/usernodesetting.do" class="com.okmindmap.web.spring.UserNodeSettingAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/user/userrecentmaps.do" class="com.okmindmap.web.spring.UserRecentMapAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<bean name="/user/checkusersession.do" class="com.okmindmap.web.spring.CheckSession">
+		<property name="userService" ref="userService"/>
+	</bean>
+
+	<bean name="/user/avatar.do" class="com.okmindmap.web.spring.UserAvatarAction">
+		<property name="userService" ref="userService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean>
+
+	<bean name="/user/tierpolicy.do" class="com.okmindmap.web.spring.UserTierPolicyAction">
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	
+	<bean name="/user/confirmAccountConnection.do" class="com.okmindmap.web.spring.ConfirmAccountConnection">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="accountConnectionService" ref="accountConnectionService"/>
+	</bean>
+	
+	<!-- Group -->
+	<bean name="/group/list.do" class="com.okmindmap.web.spring.group.ListAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+	</bean>
+	<bean name="/group/new.do" class="com.okmindmap.web.spring.group.NewAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	<bean name="/group/update.do" class="com.okmindmap.web.spring.group.UpdateAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	<bean name="/group/delete.do" class="com.okmindmap.web.spring.group.DeleteAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	<bean name="/group/join.do" class="com.okmindmap.web.spring.group.JoinAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+	</bean>
+	<bean name="/group/quit.do" class="com.okmindmap.web.spring.group.QuitAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+	</bean>
+	<bean name="/group/member/list.do" class="com.okmindmap.web.spring.group.MemberListAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+	</bean>
+	<bean name="/group/member/add.do" class="com.okmindmap.web.spring.group.MemberAddAction">
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/group/member/remove.do" class="com.okmindmap.web.spring.group.MemberRemoveAction">
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/group/member/status.do" class="com.okmindmap.web.spring.group.MemberStatusAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+	</bean>
+	
+	<bean name="/share/list.do" class="com.okmindmap.web.spring.share.ListAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="shareService" ref="shareService"/>
+	</bean>
+	<bean name="/share/add.do" class="com.okmindmap.web.spring.share.AddAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="ltiProviderService" ref="ltiProviderService"/>
+	</bean>
+	<bean name="/share/update.do" class="com.okmindmap.web.spring.share.UpdateAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="ltiProviderService" ref="ltiProviderService"/>
+	</bean>
+	<bean name="/share/delete.do" class="com.okmindmap.web.spring.share.DeleteAction">
+		<property name="userService" ref="userService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="ltiProviderService" ref="ltiProviderService"/>
+	</bean>
+	<bean name="/share/password.do" class="com.okmindmap.web.spring.share.PasswordAction">
+		
+	</bean>
+	
+	<bean name="/confirm.do" class="com.okmindmap.web.spring.ConfirmAction">
+		<property name="userService" ref="userService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+	<!-- board --> 
+	<bean name="/board/list.do" class="com.okmindmap.web.spring.board.ListAction">
+		<property name="boardService" ref="boardService"/>
+		<property name="userService" ref="userService"/>		
+	</bean>
+	
+	<bean name="/board/new.do" class="com.okmindmap.web.spring.board.NewAction">
+		<property name="boardService" ref="boardService"/>		
+	</bean>
+	
+	<bean name="/board/view.do" class="com.okmindmap.web.spring.board.ViewAction">
+		<property name="boardService" ref="boardService"/>		
+		<property name="boardMemoService" ref="boardMemoService"/>
+	</bean>
+	
+	<bean name="/board/edit_view.do" class="com.okmindmap.web.spring.board.EditViewAction">
+		<property name="boardService" ref="boardService"/>		
+	</bean>
+	
+	<bean name="/board/edit.do" class="com.okmindmap.web.spring.board.EditAction">
+		<property name="boardService" ref="boardService"/>		
+	</bean>
+	
+	<bean name="/board/delete.do" class="com.okmindmap.web.spring.board.DeleteAction">
+		<property name="boardService" ref="boardService"/>
+		<property name="userService" ref="userService"/>		
+	</bean>
+	
+	<bean name="/board/memo_edit.do" class="com.okmindmap.web.spring.board.memo.EditAction">
+		<property name="boardService" ref="boardService"/>
+		<property name="boardMemoService" ref="boardMemoService"/>
+	</bean>
+	
+	<bean name="/board/memo_new.do" class="com.okmindmap.web.spring.board.memo.NewAction">
+		<property name="boardMemoService" ref="boardMemoService"/>
+	</bean>
+	
+	<bean name="/board/memo_delete.do" class="com.okmindmap.web.spring.board.memo.DeleteAction">
+		<property name="boardMemoService" ref="boardMemoService"/>
+	</bean>
+	
+	<bean name="/help/usage.do" class="com.okmindmap.web.spring.UsageAction">
+	</bean>
+	
+	<!-- Admin -->
+	<bean name="/mindmap/admin/index.do" class="com.okmindmap.web.spring.admin.IndexAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<bean name="/mindmap/admin/maps/list.do" class="com.okmindmap.web.spring.admin.map.ListMindmapAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="groupService" ref="groupService"/>
+	</bean>
+	
+    <bean name="/mindmap/admin/maps/recommend.do" class="com.okmindmap.web.spring.admin.map.RecommendMindmapAction">
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+	<bean name="/mindmap/admin/maps/management.do" class="com.okmindmap.web.spring.admin.map.ListRecommendMindmapAction">
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+	
+	<bean name="/mindmap/admin/users/list.do" class="com.okmindmap.web.spring.admin.user.ListAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/mindmap/admin/users/group.do" class="com.okmindmap.web.spring.admin.user.GroupListAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+	</bean>
+	<bean name="/mindmap/admin/users/useradd.do" class="com.okmindmap.web.spring.admin.user.UserAddAction">
+		<property name="userService" ref="userService"/>
+		<property name="mailService" ref="mailService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	<bean name="/mindmap/admin/users/useredit.do" class="com.okmindmap.web.spring.admin.user.UserEditAction">
+		<property name="userService" ref="userService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	<bean name="/mindmap/admin/users/importUser.do" class="com.okmindmap.web.spring.admin.user.ImportUserAction">
+		<property name="userService" ref="userService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	
+	<bean name="/mindmap/admin/stars/mapStats.do" class="com.okmindmap.web.spring.admin.stats.MapStatsAction">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="groupService" ref="groupService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="statisticsReportService" ref="reportJob"/>
+	</bean>
+	<bean name="/mindmap/admin/stars/userStats.do" class="com.okmindmap.web.spring.admin.stats.UserStatsAction">
+		<property name="userService" ref="userService"/>
+		<property name="statisticsReportService" ref="reportJob"/>
+	</bean>
+	
+	<bean name="/mindmap/admin/notice/okmNotice.do" class="com.okmindmap.web.spring.admin.notice.OkmNoticeAction">
+		<property name="userService" ref="userService"/>
+	</bean>	
+	<bean name="/mindmap/admin/setting/function.do" class="com.okmindmap.web.spring.admin.setting.FunctionAction">
+		<property name="userService" ref="userService"/>
+	</bean>	
+	<bean name="/mindmap/admin/setting/adminManager.do" class="com.okmindmap.web.spring.admin.setting.AdminManagerAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/mindmap/admin/setting/backup.do" class="com.okmindmap.web.spring.admin.setting.BackupAction">
+		<property name="userService" ref="userService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean>
+	
+	<bean name="/mindmap/admin/users/download.do" class="com.okmindmap.web.spring.admin.user.ExportUserInfoAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<!-- Mashup -->
+	<bean name="/mashup/slideshare.do" class="com.okmindmap.web.spring.SlideshareServiceAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/mashup/delicious.do" class="com.okmindmap.web.spring.DeliciousServiceAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<!--  Media Content -->
+	<bean name="/media/image.do" class="com.okmindmap.web.spring.ImageProviderAction">	
+		<property name="repositoryService" ref="repositoryService"/>	
+	</bean>
+	<bean name="/media/file.do" class="com.okmindmap.web.spring.FileProviderAction">
+		<property name="repositoryService" ref="repositoryService"/>		
+	</bean>
+	<bean name="/media/video.do" class="com.okmindmap.web.spring.VideoProviderAction">		
+	</bean>
+	<bean name="/media/text.do" class="com.okmindmap.web.spring.TextProviderAction">		
+	</bean>
+	<bean name="/media/fileupload.do" class="com.okmindmap.web.spring.FileUploadAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	<bean name="/media/filedownload.do" class="com.okmindmap.web.spring.FileDownloadAction">
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean>
+	
+	<!-- Presentation -->
+	<bean name="/presentation/slide.do" class="com.okmindmap.web.spring.SlideSettingAction">
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+	
+	<!-- Moodle -->
+	<bean name="/moodle/moodleActivity.do" class="com.okmindmap.web.spring.MoodleActivityAction">
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+	<bean name="/moodle/courseEnrolment.do" class="com.okmindmap.web.spring.MoodleCourseEnrolmentAction">
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="groupService" ref="groupService"/>
+	</bean>
+	<bean name="/moodle/launch.do" class="com.okmindmap.web.spring.LaunchMoodleAction">
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="groupService" ref="groupService"/>
+	</bean>
+	<bean name="/moodle/moodleDisconnect.do" class="com.okmindmap.web.spring.MoodleDisconnectAction">
+		<property name="userService" ref="userService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="groupService" ref="groupService"/>
+	</bean>
+	<bean name="/moodle/moodleConnectExisting.do" class="com.okmindmap.web.spring.MoodleConnectExistingAction">
+		<property name="userService" ref="userService"/>
+		<property name="shareService" ref="shareService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="groupService" ref="groupService"/>
+	</bean>
+	<bean name="/moodle/services.do" class="com.okmindmap.web.spring.MoodleServicesAction">
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="userService" ref="userService"/>
+		<property name="accountConnectionService" ref="accountConnectionService"/>
+	</bean>
+	
+	<!-- IOT -->
+	<bean name="/iot/noderedAuth.do" class="com.okmindmap.web.spring.iot.NoderedAuth">
+		<property name="okmindmapService" ref="okmindmapService"/>
+	</bean>
+	
+	<bean name="/iot/providers.do" class="com.okmindmap.web.spring.iot.Providers">
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="pricingService" ref="pricingService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	
+	<bean name="/iot/ctrl.do" class="com.okmindmap.web.spring.iot.CtrlAction">
+		<property name="okmindmapService" ref="okmindmapService"/>
+	</bean>
+	
+	<bean name="/loadpage.do" class="com.okmindmap.web.spring.LoadWebPageAction">
+	</bean>
+
+	<!-- Thumbmail -->
+	<bean name="/mindmap/thumb.do" class="com.okmindmap.web.spring.ThumbnailAction">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean>
+	<bean name="/mindmap/downloadThumb.do" class="com.okmindmap.web.spring.ThumbnailDownloadAction">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean>
+
+	<bean name="/mindmap/remixmap.do" class="com.okmindmap.web.spring.RemixMindmapAction">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	<bean name="/mindmap/mapofremixes.do" class="com.okmindmap.web.spring.MapOfRemixesAction">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+
+	<bean name="/mindmap/mydatastatistics.do" class="com.okmindmap.web.spring.MyDataStatisticsAction">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+	</bean>
+
+	<!-- Pricing -->
+	<bean name="/mindmap/admin/pricing/tier/list.do" class="com.okmindmap.web.spring.admin.pricing.tier.ListAction">
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	<bean name="/mindmap/admin/pricing/tier/form.do" class="com.okmindmap.web.spring.admin.pricing.tier.FormAction">
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	<bean name="/mindmap/admin/pricing/tier/accounts.do" class="com.okmindmap.web.spring.admin.pricing.tier.AccountListAction">
+		<property name="userService" ref="userService"/>
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	
+	<bean name="/ltiprovider/tool.do" class="com.okmindmap.web.spring.lti.ToolAction">
+		<property name="userService" ref="userService"/>
+		<property name="ltiProviderService" ref="ltiProviderService"/>
+	</bean>
+	<!-- <bean name="/mindmap/admin/pricing/tier/member/list.do" class="com.okmindmap.web.spring.admin.pricing.tier.MemberListAction">
+		<property name="pricingService" ref="pricingService"/>
+	</bean>
+	<bean name="/mindmap/admin/pricing/tier/member/add.do" class="com.okmindmap.web.spring.admin.pricing.tier.MemberAddAction">
+		<property name="pricingService" ref="pricingService"/>
+	</bean> -->
+	
+
+	<!-- API -->
+	<!-- <bean name="/api/create.do" class="com.okmindmap.api.v1.controller.CreateMapController">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean>
+	<bean name="/api/delete.do" class="com.okmindmap.api.v1.controller.DeleteMapController">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean> -->
+	
+	<!-- SET LOG4J --> 
+	<bean name="/setLog4jTimeStamp.do" class="com.okmindmap.web.spring.Log4jTimeStampAction">
+	</bean>
+	
+    <!-- Interceptor 설정 : 로그인 처리 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="authenticationInterceptor" class="com.okmindmap.common.AuthInterceptor">
+				<property name="userService" ref="userService"/>
+		    </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
+    <!--  -->
+    <bean id="jsonMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
+    <bean id="jsonResponse" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+    	<property name="objectMapper" ref="jsonMapper" />
+    </bean>
+    <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+    	<property name="order" value="0"/>
+    </bean>
+
+<!-- Defined for IoT services -->
+	<bean name="/iot/sensors.do" class="com.okmindmap.web.spring.iot.SensorListAction">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/devices.do" class="com.okmindmap.web.spring.iot.DevicesManager">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/add.do" class="com.okmindmap.web.spring.iot.AddDevice">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/sensor.do" class="com.okmindmap.web.spring.iot.DeviceSensor">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/addconn.do" class="com.okmindmap.web.spring.iot.AddSensor">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/action.do" class="com.okmindmap.web.spring.iot.GetDeviceAction">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/setval.do" class="com.okmindmap.web.spring.iot.SetDeviceValue">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/ugetvalue.do" class="com.okmindmap.web.spring.iot.UserGetDeviceValue">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/ugetstatus.do" class="com.okmindmap.web.spring.iot.UserGetDeviceStatus">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/usetaction.do" class="com.okmindmap.web.spring.iot.UserSetDeviceAction">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/usetvalue.do" class="com.okmindmap.web.spring.iot.UserSetDeviceValue">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/readydevice.do" class="com.okmindmap.web.spring.iot.UserLoadReadyDevices">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/readysensor.do" class="com.okmindmap.web.spring.iot.UserLoadReadySensor">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/checkstt.do" class="com.okmindmap.web.spring.iot.UserCheckDeviceStatus">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/updateconn.do" class="com.okmindmap.web.spring.iot.UpdateSensor">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/updateDevice.do" class="com.okmindmap.web.spring.iot.UpdateDevice">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/deleteconn.do" class="com.okmindmap.web.spring.iot.DeleteConnection">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/deleteDevice.do" class="com.okmindmap.web.spring.iot.DeleteDevice">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/iot/key.do" class="com.okmindmap.web.spring.iot.GenerateKey">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	
+	<bean name="/oauth2/authorize.do" class="com.okmindmap.web.spring.oauth.Authorize">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/oauth2/token.do" class="com.okmindmap.web.spring.oauth.Token">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/oauth2/userinfo.do" class="com.okmindmap.web.spring.oauth.UserInfo">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/cmd/file.do" class="com.okmindmap.web.spring.file.RestoreFiles">
+
+	</bean>
+	
+	<bean name="/red/userflows.do" class="com.okmindmap.web.spring.iot.red.UserFlowsAction">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/red/addflow.do" class="com.okmindmap.web.spring.iot.red.AddFlowAction">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/red/deloyflows.do" class="com.okmindmap.web.spring.iot.red.DeloyFlowsAction">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/red/macflow.do" class="com.okmindmap.web.spring.iot.red.FlowIdByMacAction">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	<bean name="/red/setconnected.do" class="com.okmindmap.web.spring.iot.red.UpdateConnectedFlow">
+		<property name="userService" ref="userService"/>
+		<property name="iotService" ref="iotService"/>
+	</bean>
+	
+	<bean name="/contact.do" class="com.okmindmap.web.spring.ContactMailSender">
+		<property name="userService" ref="userService"/>
+		<property name="mailService" ref="mailService"/>
+	</bean>
+	<bean name="/new/index.do" class="com.okmindmap.web.spring.NewHomePage">
+		
+	</bean>
+</beans>

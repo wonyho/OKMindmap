@@ -1,0 +1,14 @@
+# version
+okmindmap.update.version=201903281458
+# \ub85c\uceec\ud14c\uc2a4\ud2b8\uc758 \uacbd\uc6b0 session url \uc0ad\uc81c
+# \uac80\uc218\uc11c\ubc84\uc758 \uacbd\uc6b0 rang -> rang4 \ubcc0\uacbd
+session.check.url = http://rang.edunet.net/public/checkRang.do
+session.redirect.url = http://rang.edunet.net
+facebook.appid=125954134181535
+# \ub85c\uceec\ud14c\uc2a4\ud2b8\uc758 \uacbd\uc6b0 testYN = Y
+auth.testYN = N
+auth.testId = tdemo01
+auth.testNo = M097820679
+# \uc288\ud37c\uad00\ub9ac\uc790. \uc5ec\ub7ec\uba85\uc77c \uacbd\uc6b0 \ube48\uce78\uc5c6\uc774 ","\ub85c \uad6c\ubd84
+auth.superadminNo = M097962528
+tok.delete.url = http://rang.edunet.net/tt/s/eapi/USER_EAPI_ROOM_BY_KEY_CLOSE

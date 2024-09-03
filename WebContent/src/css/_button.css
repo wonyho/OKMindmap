@@ -1,0 +1,20 @@
+.button {
+  @apply px-4 py-5 text-16 leading-110p outline-none appearance-none uppercase bg-primary inline-block;
+  min-width: 230px;
+  color: #fff;
+  min-height: 60px;
+  border-radius: 30px;
+}
+
+.button:focus,
+.button:hover {
+  @apply outline-none appearance-none;
+}
+
+.button:disabled {
+  @apply opacity-50;
+}
+
+.btn {
+  @apply hover:bg-primary hover:text-white transition ease-in-out inline-block cursor-pointer;
+}

@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+@font-face {
+  font-family: 'Gmarket Sans';
+  font-weight: 700;
+  src: url('../fonts/GmarketSansTTFBold.ttf') format('TrueType');
+}
+
+html,
+body {
+  @apply text-base;
+  font-family: 'Noto Sans KR', sans-serif !important;
+  color: #000000;
+}

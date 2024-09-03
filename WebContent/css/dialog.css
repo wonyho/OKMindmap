@@ -1,0 +1,514 @@
+/*
+max-width 가 350px보다 작은 device start  
+*/
+@media all and (max-width: 450px) {
+	 /*.ui-dialog{
+     	width : 100%;
+     	height : 100%;
+     }*/
+     
+      /*mobile insertImage
+-------------------*/
+	  .ui-dialog.insertImageAction iframe{
+     	width : 100%;
+     	height : 180px;
+     }
+     
+     /*mobile openMap
+-------------------*/
+      .ui-dialog.openMap iframe{
+      	width : 600px !important;
+      	height : 310px !important;
+      }
+      .ui-dialog.videoProviderAction iframe{
+	  	/* width : 100% important; */
+	  	width : 340px !important;
+	   	height : 500px !important; /* 470px */
+	  }
+	  
+	     	 /*로그인
+-------------------*/
+	  .ui-dialog.okmLogin{
+     	width : 325px !important;
+     }
+     
+      .ui-dialog.okmLogin iframe{
+     	width : 320px !important;
+     	height: 260px;
+     }
+         	 /*회원가입
+-------------------*/
+     .ui-dialog.joinmember{
+   		width : 308px !important;
+   	 }
+   
+	.ui-dialog.joinmember iframe{
+		width : 300px !important;
+ 		height : 276px !important;
+	}
+	.ui-dialog.imageProviderAction {
+     	width : auto;
+     	height : auto;
+     }
+     .ui-dialog.imageProviderAction iframe{
+  	 	width : 550px !important;
+   	    height : 520px !important; /* 기존 500px 수정 cho */
+	 }
+}
+/*
+max-width 가 350px보다 작은 device end
+*/
+
+
+
+/*
+max-width 가 768px보다 큰 device start  
+*/
+@media all and (min-width: 451px) {
+	/*임베드 태그
+-------------------*/
+      .ui-dialog.createEmbedTag{
+     	width : 350px;
+     }
+	  .ui-dialog.shorturlFunction{
+     	width : 440px;
+     }
+	 /*가져오기
+-------------------*/
+	 .ui-dialog.clipBoard{
+     	width : 320px;
+     } 
+     /*설정
+-------------------*/
+	  .ui-dialog.okmPreference{
+     	width : 300px;
+     	height : 300px;
+	  }	
+     
+     	 /*새이름 저장
+-------------------*/
+	  .ui-dialog.saveAsMap{
+     	width : 300px;
+     }
+     
+      /*mobile insertImage
+-------------------*/
+	  .ui-dialog.insertImageAction iframe{
+     	width : 300px;
+     }
+     
+     /*비디오 추가
+-------------------*/
+	  .ui-dialog.videoProviderAction {
+     	width : auto;
+     	height : auto;
+     }
+     
+     /*이미지 추가
+-------------------*/
+	  .ui-dialog.imageProviderAction {
+     	width : auto;
+     	height : auto;
+     }
+     
+   	 /*로그인
+-------------------*/
+	 .ui-dialog.okmLogin{
+     	width : 350px;
+     }
+     
+      .ui-dialog.okmLogin iframe{
+     	width : 332px !important;
+     	height: 260px !important;
+     }
+   	 /*회원가입
+-------------------*/     
+	.ui-dialog.joinmember{
+   		width : 355px !important;
+   	 }
+   
+	.ui-dialog.joinmember iframe{
+		width : 373px !important;
+ 		height : 252px !important;
+	}     
+   	 /*내 정보
+-------------------*/
+	  .ui-dialog.editProfile{
+     	width : 350px;
+     }
+     
+   	 /*새마인드맵
+-------------------*/
+	  .ui-dialog.editProfile{
+     	width : 320px;
+     }
+     
+     /*열기
+-------------------*/
+	  .ui-dialog.openMap{
+     	width : 635px;
+     }
+     
+     .ui-dialog.openMap iframe{
+      	width : 610px !important;
+      	height : 320px !important;
+      }
+     
+	.ui-dialog.openMapClbDoc {
+		width: 535px;
+	}
+	.ui-dialog.openMapClbDoc iframe {
+		width: 510px !important;
+		height: 450px !important;
+	}
+
+	/*FreeMind 올리기
+-------------------*/
+	.ui-dialog.importMap{
+     	width : 400px;
+     }
+     
+     /*그룹 관리
+-------------------*/
+	  .ui-dialog.groupManage{
+     	width : 500px;
+     }
+     
+     /*공유 설정
+-------------------*/
+	  .ui-dialog.shareManage{
+     	width : 475px;
+     }
+     
+     /*Q&A
+-------------------*/
+	  .ui-dialog.requestFunction{
+     	width : 580px;
+     }
+     
+     /*공지사항
+-------------------*/
+	  .ui-dialog.okmNoticeAction{
+     	width : 510px;
+     }
+     
+     /*하이퍼링크
+-------------------*/
+	  .ui-dialog.insertHyperAction{
+     	width : 300px;
+     }
+     
+       /*하이퍼링크
+-------------------*/
+	  .ui-dialog.nodeStructureFromText{
+     	width : 500px;
+     }
+     
+       /*TEXT로 내보내기
+-------------------*/
+	  .ui-dialog.nodeStructureToText{
+     	width : 500px;
+     }
+     
+       /*Xml로 가져오기
+-------------------*/
+	  .ui-dialog.nodeStructureFromXml{
+     	width : 500px;
+     }
+       /*Xml로 내보내기
+-------------------*/
+	  .ui-dialog.nodeStructureToXml{
+     	width : 500px;
+     }
+      .ui-dialog.importBookmark{
+     	width : 350px;
+     }
+       /*글자 색상
+-------------------*/
+	  .ui-dialog.nodeTextColorAction{
+     	width : 400px;
+     }
+     
+       /*배경 색상
+-------------------*/
+	  .ui-dialog.nodeTextColorAction{
+     	width : 400px;
+     }
+     
+       /*IFrame
+-------------------*/
+	  .ui-dialog.insertIFrameAction{
+     	width : 410px;
+     }
+     
+	  .ui-dialog.insertWebpageAction{
+	  	width : 640px;
+	   	height : 480px;
+     }
+
+     .ui-dialog.imageProviderAction iframe{
+  	 	width : 550px !important;
+   	    height : 650px !important; /* 기존 500px 수정 조동휘 */
+	 }
+    /*비디오 추가
+-------------------*/
+	 .ui-dialog.videoProviderAction iframe{
+	  	width : 100% !important;
+	   	height : 550px !important; /* 470px */
+	 }
+	 
+}
+/*
+max-width 가 768px보다 큰 device end  
+*/
+
+.ui-dialog{
+	max-width: 100%;
+}
+
+.dialog_content {
+	text-align: center;
+}
+.ui-dialog .ui-dialog-content{
+	padding: 10px 15px; */
+	font-size: 14px;
+	overflow: scroll;
+}
+.ptxt{
+	color: #555;
+	margin: 0 0 10px;
+}
+textarea[id *= okm]{
+	border: 1px solid #e0e0e0;
+	width: 100%;
+	color: #555;
+	height: 140px;
+	font-size: 14px;
+	padding: 10px;
+	box-sizing: border-box;
+}  
+.dialog_content_nod{
+	color: #555;
+}
+/*설정 iframe
+-------------------*/
+.ui-dialog.okmPreference iframe{
+	width : 280px;
+   	height : 300px;
+}
+     
+.dialog_content_xml{
+	   width:100%;
+	   height:218px;
+}     
+.videoEdit #rangeValue{
+   	width: 70px;
+	position: absolute;
+	left: 45px;
+	top: 61px;
+	text-align: right;
+}
+     
+.videoEdit #sizeSlider{
+   	width: 180px;
+	position: absolute;
+	left: 140px;
+	top: 58px;
+}
+     
+/*이미지 추가
+-------------------*/
+  
+.imageEdit #rangeValue{
+   	width: 70px;
+	position: absolute;
+	left: 45px;
+	top: 4px;
+	text-align: right;
+}
+     
+.imageEdit #sizeSlider{
+   	width: 180px;
+	position: absolute;
+	left: 140px;
+	top: 2px;
+}
+  
+.changeMapName .dialog_content, .saveAsMap .dialog_content, .splitMap .dialog_content{
+   	display : block;
+   	text-align : center;
+}
+
+ /*내 정보
+-------------------*/
+.ui-dialog.editProfile iframe{
+  	width : 350px;
+   	height : 215px !important;
+}
+
+ /*아이디찾기
+-------------------*/
+.ui-dialog.ui-dialog-content iframe{
+  	width : 350px;
+   	height : 215px;
+}
+
+ /*새 마인드맵
+-------------------*/
+.ui-dialog.newMap iframe.guest{
+	width : 320px;
+	height : 200px;
+}
+
+.ui-dialog.newMap iframe.loginUser{
+	width : 320px;
+	height : 130px;
+}
+
+ /*Bookmark, FreeMind 올리기
+-------------------*/
+.importMap iframe,.importBookmark iframe{
+	width : 400px;
+	height : 150px;
+}
+
+ /*그룹관리
+-------------------*/
+.ui-dialog.groupManage iframe{
+	width : 500px !important;
+	height : 470px !important;
+}
+
+ /*공유 설정
+-------------------*/
+.ui-dialog.shareManage iframe{
+	width : 100% !important;
+	height : 300px !important;
+}
+
+ /*Q&A
+-------------------*/
+.ui-dialog.requestFunction iframe{
+	/*width : 540px;*/
+	width : 100% !important;
+	height : 450px !important;
+}
+
+/*video, image 팝업창*/
+#contentSizeSet {
+	padding-bottom:10px;	
+} 
+
+.contentSizeSet_img{
+	padding-bottom:10px;
+	margin-top: 20px;
+	height: 100px;
+}
+
+#contentSizeSet .sizeTitle, #margin_left_title, #margin__title{
+	clear:left;
+	float:left;
+	margin:5px 10px 0px 0px;
+}
+
+#contentSizeSet #sizeSlider, #slider_margin_left, #slider_margin_top{
+	float:left;
+	width:180px;
+	margin:6px 5px 5px 7px;
+	border: 1px solid #a6c9e2;  
+	color: #222222; 	
+}
+#contentSizeSet #sizeSlider, #widthSlider, #heightSlider, #zoomSlider {
+	float:left;
+	width:180px;
+	margin:6px 5px 5px 7px;
+	border: 1px solid #a6c9e2;  
+	color: #222222; 	
+}
+
+#contentSizeSet .rangeValue{
+	width:50px;
+	margin-left:10px;
+	margin-right:50px;
+}
+
+.contentSizeSet_img div{
+	margin-right: 10px !important;
+	display: inline;
+}
+
+.contentSizeSet_img span{
+	cursor: pointer;
+}
+
+/* #contentSizeSet span:hover{
+	border: 3px solid #7e7e7e !important;
+} */
+
+.contentSizeSet_img span.on{
+	border: 3px solid #49527C !important;
+}
+
+.contentSizeSet_img #contentSizeSet_s{
+	width: auto;
+	padding: 20px;
+	border: 1px solid gray;
+	margin-right: 5px;
+	display: inline-block; 
+	vertical-align: bottom;
+}
+
+.contentSizeSet_img #contentSizeSet_m{
+	width: auto;
+	padding: 30px;
+	border: 1px solid gray;
+	margin-right: 5px;
+	display: inline-block; 
+	vertical-align: bottom;
+}
+
+.contentSizeSet_img #contentSizeSet_l{
+	width: auto;
+	padding: 40px;
+	border: 1px solid gray;
+	margin-right: 5px;
+	display: inline-block; 
+	vertical-align: bottom;
+}
+
+/*편집권한 비밀번호
+-------------------*/
+	  .ui-dialog.inputPasswordP{
+     	width : 357px !important;
+     }
+     
+      .ui-dialog.inputPasswordP iframe{
+     	width : 345px !important;
+     }
+ /*내보내기
+-------------------*/
+.ui-dialog.exportFile{
+   	width : 320px;
+}
+.ui-dialog .exportFile img{
+   	width: 32px;
+}
+.ui-dialog.exportFile #exportAlert img{
+   	width: 15px;
+    bottom: 17px;
+    position: absolute;
+    cursor: auto;
+    display: inline-block;
+    left: 10px;
+}
+.ui-dialog.exportFile #exportAlert span{
+   	font-size: 11px;
+    cursor: auto;
+    padding-left: 18px;
+    display: inline-block;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { 
+	border: 1px solid #c5dbec; 
+	font-weight: bold; 
+	color: #2e6e9e; 
+	}

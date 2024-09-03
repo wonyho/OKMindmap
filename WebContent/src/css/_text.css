@@ -1,0 +1,64 @@
+.text-xxs {
+  @apply text-12;
+  line-height: 150%;
+}
+
+.text-xs {
+  @apply text-12;
+  line-height: 150%;
+}
+
+.text-sm {
+  @apply text-14;
+  line-height: 150%;
+}
+
+.text-base {
+  @apply text-16;
+  line-height: 150%;
+}
+
+.text-lg {
+  @apply text-18;
+  line-height: 150%;
+}
+
+.text-xl {
+  @apply text-20;
+  line-height: 150%;
+}
+
+.text-2xl {
+  @apply text-24;
+  line-height: 150%;
+}
+
+.text-3xl {
+  @apply text-30;
+  line-height: 110%;
+}
+
+.text-4xl {
+  @apply text-36;
+  line-height: 110%;
+}
+
+.text-5xl {
+  @apply text-48;
+  line-height: 110%;
+}
+
+.text-6xl {
+  @apply text-60;
+  line-height: 110%;
+}
+
+.text-7xl {
+  @apply text-72;
+  line-height: 110%;
+}
+
+.text-8xl {
+  @apply text-86;
+  line-height: 110%;
+}

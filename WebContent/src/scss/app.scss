@@ -1,0 +1,41 @@
+$body: #000000;
+$primary: #d0322f;
+
+@import './swiper.scss';
+// @import './gsap.scss';
+
+@import './page-index.scss';
+@import './page-consulting.scss';
+@import './page-tubelearn.scss';
+@import './page-tubeanaly.scss';
+@import './page-tubestory.scss';
+
+[x-cloak] {
+  display: none;
+}
+
+.header {
+  .main-menu {
+    .menu-item:not(:first-child) {
+      margin-left: 40px;
+    }
+  }
+
+  .hamburger-button {
+    background-image: url('../images/icon-bars.svg');
+  }
+}
+
+body.open-menu {
+  overflow: hidden;
+
+  .header {
+    .hamburger-button {
+      background-image: url('../images/icon-close.svg') !important;
+    }
+  }
+
+  .mobile-menu-wrap {
+    display: block !important;
+  }
+}
