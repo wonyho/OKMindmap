@@ -308,6 +308,14 @@ public class UserServiceImpl implements UserService {
 	public List<UserConfigData> getUserConfigData(int userid)  throws Exception {
 		return this.userDAO.getUserConfigData(userid);
 	}
+	
+	public UserConfigData getUserConfigData(int userid, String key)  throws Exception {
+		return this.userDAO.getUserConfigData(userid, key);
+	}
+	
+	public boolean sureConfigFieldExisted(String field, String descript) throws Exception{
+		return this.userDAO.sureConfigFieldExisted(field, descript);
+	}
 
 	public void setUserConfigData(int userid, String field, String data)  throws Exception {
 		this.userDAO.setUserConfigData(userid, field, data);

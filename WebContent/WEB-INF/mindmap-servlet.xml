@@ -19,7 +19,7 @@
 <!-- 	<bean name="/test.do" class="com.okmindmap.test.TestAction"> -->
 <!-- 		<property name="mindmapDAO" ref="mindmapDAO"/> -->
 <!-- 	</bean> -->
-	
+	<import resource="mindmapsa-servlet.xml" />
 	<bean name="/index.do" class="com.okmindmap.web.spring.IndexAction">
 		<property name="userService" ref="userService"/>
 		<property name="okmindmapService" ref="okmindmapService"/>
@@ -594,6 +594,7 @@
 	<bean name="/mindmap/mapofremixes.do" class="com.okmindmap.web.spring.MapOfRemixesAction">
 		<property name="userService" ref="userService"/>
 		<property name="mindmapService" ref="mindmapService"/>
+		<property name="repositoryService" ref="repositoryService"/>
 	</bean>
 
 	<bean name="/mindmap/mydatastatistics.do" class="com.okmindmap.web.spring.MyDataStatisticsAction">
@@ -778,7 +779,9 @@
 		<property name="userService" ref="userService"/>
 		<property name="mailService" ref="mailService"/>
 	</bean>
-	<bean name="/new/index.do" class="com.okmindmap.web.spring.NewHomePage">
-		
+	<bean name="/shorturl/open.do" class="com.okmindmap.web.spring.OpenShortUrl">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="repositoryService" ref="repositoryService"/>
 	</bean>
 </beans>

@@ -1,2 +1,4 @@
 /.DS_Store
 /okmindmap.war
+/WebContent/WEB-INF/classes
+/build/*

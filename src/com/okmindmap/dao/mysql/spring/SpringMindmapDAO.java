@@ -32,6 +32,9 @@ import com.okmindmap.dao.mysql.spring.mapper.IconRowMapper;
 import com.okmindmap.dao.mysql.spring.mapper.MapRowMapper;
 import com.okmindmap.dao.mysql.spring.mapper.MapTimelineRowMapper;
 import com.okmindmap.dao.mysql.spring.mapper.NodeRowMapper;
+import com.okmindmap.dao.mysql.spring.mapper.RepositoryRowMapper;
+import com.okmindmap.dao.mysql.spring.mapper.sa.SaNodeRowMapper;
+import com.okmindmap.dao.mysql.spring.mapper.sa.SaNodeFileRowMapper;
 import com.okmindmap.dao.mysql.spring.mapper.RichContentRowMapper;
 import com.okmindmap.dao.mysql.spring.mapper.SearchNodeRowMapper;
 import com.okmindmap.dao.mysql.spring.mapper.SlideRowMapper;
@@ -51,6 +54,7 @@ import com.okmindmap.model.Map;
 import com.okmindmap.model.MapTimeline;
 import com.okmindmap.model.Node;
 import com.okmindmap.model.Parameter;
+import com.okmindmap.model.Repository;
 import com.okmindmap.model.RichContent;
 import com.okmindmap.model.Slide;
 import com.okmindmap.model.User;
@@ -1721,6 +1725,70 @@ public class SpringMindmapDAO extends SpringDAOBase implements MindmapDAO {
 		"LEFT JOIN (SELECT roomnumber, COUNT(roomnumber) AS queuecount FROM mm_queuedata GROUP BY roomnumber) q ON mm.map_key = q.roomnumber " +
 		"LEFT JOIN (SELECT map_id, COUNT(id) AS revisioncnt FROM mm_map_timeline GROUP BY map_id) rev ON mm.id = rev.map_id ";
 		return getJdbcTemplate().query(sql, params.toArray(),new MapRowMapper());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map> Sa_getAllMaps(int page, int pagelimit, String search){
+		String sql = "SELECT mm_map.*, mm_user.firstname, mm_user.lastname "
+				+ "FROM mm_map "
+				+ "JOIN mm_map_owner ON mm_map_owner.mapid = mm_map.id "
+				+ "JOIN mm_user ON mm_map_owner.userid = mm_user.id ";
+		Object[] param = new Object[] {};
+		if(search != "") {
+			sql += "WHERE mm_map.name LIKE CONCAT('%', ?, '%') "
+					+ "OR mm_user.username LIKE CONCAT('%', ?, '%') "
+					+ "OR mm_user.email LIKE CONCAT('%', ?, '%') "
+					+ "OR mm_user.lastname LIKE CONCAT('%', ?, '%') "
+					+ "OR mm_user.firstname LIKE CONCAT('%', ?, '%') ";
+			param = new Object[] { search, search, search, search, search };
+		}
+		sql += " ORDER BY mm_map.id DESC LIMIT "+(page-1)*pagelimit+" , "+pagelimit+" ";		
+		return getJdbcTemplate().query(sql, param,new MapRowMapper());
+	}
+	
+	public int Sa_countAllMaps(String search){
+		String sql ="SELECT COUNT(mm_map.id) "
+				+ "FROM mm_map "
+				+ "JOIN mm_map_owner ON mm_map_owner.mapid = mm_map.id "
+				+ "JOIN mm_user ON mm_map_owner.userid = mm_user.id ";
+		Object[] param = new Object[] {};
+		if(search != "") {
+			sql += "WHERE mm_map.name LIKE CONCAT('%', ?, '%') "
+					+ "OR mm_user.username LIKE CONCAT('%', ?, '%') "
+					+ "OR mm_user.email LIKE CONCAT('%', ?, '%') "
+					+ "OR mm_user.lastname LIKE CONCAT('%', ?, '%') "
+					+ "OR mm_user.firstname LIKE CONCAT('%', ?, '%') ";
+			param = new Object[] { search, search, search, search, search };
+		}	
+		return (Integer) getJdbcTemplate().queryForObject(sql, param, Integer.class);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Node> Sa_getMapNodes(int mapid){
+		String sql = "SELECT mm_node.id "
+				+ "FROM mm_node "
+				+ "WHERE mm_node.map_id = ? ";
+		
+		return getJdbcTemplate().query(sql, new Object[] {mapid},new SaNodeRowMapper());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Repository> Sa_getMapFiles(int mapid){
+		String sql = "SELECT * "
+				+ "FROM mm_repository "
+				+ "WHERE mm_repository.mapid = ? ";
+		
+		return getJdbcTemplate().query(sql, new Object[] {mapid},new RepositoryRowMapper());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Node> Sa_getMapFileNodes(int mapid){
+		String sql = "SELECT mm_node.id, mm_richcontent.content, mm_node.file "
+				+ "FROM mm_node "
+				+ "LEFT JOIN  mm_richcontent ON mm_richcontent.content LIKE '%/map/file/%' AND mm_richcontent.node_id = mm_node.id "
+				+ "WHERE mm_node.map_id = ? AND (mm_richcontent.id IS NOT NULL OR mm_node.file IS NOT NULL)";
+		
+		return getJdbcTemplate().query(sql, new Object[] {mapid},new SaNodeFileRowMapper());
 	}
 	
 	@SuppressWarnings("unchecked")

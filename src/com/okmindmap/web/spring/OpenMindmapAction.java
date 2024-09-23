@@ -26,7 +26,7 @@ import com.okmindmap.util.PasswordEncryptor;
 //import com.rosaloves.bitlyj.Url;
 //import static com.rosaloves.bitlyj.Bitly.*;
 import com.okmindmap.moodle.MoodleService;
-import com.okmindmap.api.shorturl.Shrtcode;
+import com.okmindmap.api.shorturl.OkmmSite;
 
 public class OpenMindmapAction extends BaseAction {
 
@@ -105,16 +105,15 @@ public class OpenMindmapAction extends BaseAction {
 		User owner = null;
 		
 		//check and make short url
-		if(map.getShort_url() == null || map.getShort_url().equals("")) {
-			try {
-//			    String short_url = new java.net.URL(request.getScheme(), request.getServerName(), request.getServerPort(), request.getContextPath()+"/map/").toString() + mapKey;
-				String short_url = this.getBaseUrl(request) + "/map/"  + mapKey;
-//				Url url = as("okmindmap", "R_da786c2b143c929588b05f253198be62").call(shorten(short_url));
-//				Url url = Rapid.shorten(short_url);
-				short_url = Shrtcode.shorten(short_url);
-				map.setShort_url(short_url);
-				this.mindmapService.updateshortUrl(map.getId(), short_url);
-			} catch (Exception e) {}
+		if(map.getShort_url() == null || "".equals( map.getShort_url())) {
+			String short_url = OkmmSite.shorten(map.getId());
+			map.setShort_url(short_url);
+			this.mindmapService.updateshortUrl(map.getId(), short_url);
+		}
+		if(map.getShort_url().indexOf("okm.vn/s/") < 0) {
+			String short_url = OkmmSite.shorten(map.getId());
+			map.setShort_url(short_url);
+			this.mindmapService.updateshortUrl(map.getId(), short_url);
 		}
 		
 		String password = getOptionalParam(request, "password", null);
@@ -275,7 +274,7 @@ public class OpenMindmapAction extends BaseAction {
 							else
 								data.put("action", "/map/" + mapKey);
 								
-							data.put("mapId", Integer.toString(map.getId()));
+							data.put("mapId", Integer.toString(map.getId() > 0 ? map.getId() : 0));
 							if(canView){
 								data.put("directView", "1");
 							}
@@ -294,7 +293,7 @@ public class OpenMindmapAction extends BaseAction {
 					else
 						data.put("action", "/map/" + mapKey);
 					
-					data.put("mapId", Integer.toString(map.getId()));
+					data.put("mapId", Integer.toString(map.getId() > 0 ? map.getId() : 0));
 					data.put("hasPasswordEditGrant", ""+hasPasswordEditGrant);
 					return new ModelAndView("share/password", "data", data);
 				}
@@ -302,7 +301,7 @@ public class OpenMindmapAction extends BaseAction {
 					//System.out.println("2번 경우");
 					/*HashMap<String, String> data = new HashMap<String, String>();
 					data.put("action", "/map/" + mapKey);
-					data.put("mapId", Integer.toString(map.getId()));
+					data.put("mapId", Integer.toString(map.getId() > 0 ? map.getId() : 0));
 					data.put("message", "strongpassword");
 					data.put("hasPasswordEditGrant", ""+hasPasswordEditGrant);*/
 					//return new ModelAndView("share/password", "data", data);
@@ -317,7 +316,7 @@ public class OpenMindmapAction extends BaseAction {
 					else
 						data.put("action", "/map/" + mapKey);
 
-					data.put("mapId", Integer.toString(map.getId()));
+					data.put("mapId", Integer.toString(map.getId() > 0 ? map.getId() : 0));
 					data.put("message", "Invalid password!");
 					return new ModelAndView("share/password", "data", data);
 				}
@@ -363,7 +362,7 @@ public class OpenMindmapAction extends BaseAction {
 		
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		data.put("map", map);
-		data.put("mapId", Integer.toString(map.getId()));
+		data.put("mapId", Integer.toString(map.getId() > 0 ? map.getId() : 0));
 		data.put("menu", menu);
 		data.put("google", google);
 		data.put("canEdit", canEdit);
@@ -383,7 +382,7 @@ public class OpenMindmapAction extends BaseAction {
 			else
 				data.put("action", "/map/" + mapKey);
 
-			data.put("mapId", Integer.toString(map.getId()));
+			data.put("mapId", Integer.toString(map.getId() > 0 ? map.getId() : 0));
 			data.put("message", "strongpassword");
 			
 			data.put("hasPasswordEditGrant", ""+hasPasswordEditGrant);

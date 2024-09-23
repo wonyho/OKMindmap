@@ -41,7 +41,9 @@ var canCopyNode_menu_list = new Array(
 	"exportFile",
 	"clipBoard",
 	"exportToFreemind",
-	"remixMap"
+	"remixMap",
+	"remixActions",
+	"mapOfRemixes"
 );
 
 var selected_menu_list = new Array(
@@ -253,7 +255,6 @@ $(document).ready(function () {
 	setMenuActions(menu_canCopyNode, canCopyNode_menu_list);
 	setMenuActions(menu_canEdit, canEdit_menu_list);
 	setMenuActions(menu_isOwner, isOwner_menu_list);
-
 	setMenuActions(!jMap.cfg.isShrdGuest, new Array('exportMyData'));
 
 	if (!menu_isOwner) {
@@ -353,6 +354,7 @@ $(document).ready(function () {
 	}
 
 	setTierPolicy();
+	setTimeout(function(){setMenuActions(menu_canCopyNode, canCopyNode_menu_list); console.log("menu_canCopyNode ", menu_canCopyNode);}, 3000);
 	
 	// navbarMenusToggle(($.cookie('toggleMenus') == 'true'), true);
 });

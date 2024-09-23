@@ -194,17 +194,24 @@
 					} else page++;
 
 					$.ajax({
-						type: 'GET',
+						/* type: 'GET',
 						url: 'https://www.googleapis.com/customsearch/v1',
 						dataType: 'json',
 						data: {
-							'key': 'AIzaSyCqhNd5-z2hAqEK1hSozv32AkFV88_TFjs',
+							'key': 'AIzaSyA5j1VZ3hJccqvMQZ8h_nWAl5kzRMZNnUQ',
 							'cx': '006697568995703237209:vljrny3h45w',
 							'q': $('#searchInput').val(),
 							'searchType': 'image',
 							'num': 10,
 							'start': page * 10 + 1
-						},
+						}, */
+						type: 'GET',
+						url: '${pageContext.request.contextPath}/api/search/image.do',
+						contentType: "application/json;charset=utf-8",
+						data: {
+							'q': $('#searchInput').val(),
+							'page': page > 0 ? page : 0
+						}, 
 						success: function (data) {
 							var items = data.items || [];
 

@@ -43,8 +43,7 @@ public class IndexAction extends BaseAction {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		
+			HttpServletResponse response) throws Exception {		
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		
 		User user = getUser(request);

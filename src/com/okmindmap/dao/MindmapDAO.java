@@ -17,6 +17,7 @@ import com.okmindmap.model.Map;
 import com.okmindmap.model.MapTimeline;
 import com.okmindmap.model.Node;
 import com.okmindmap.model.Parameter;
+import com.okmindmap.model.Repository;
 import com.okmindmap.model.RichContent;
 import com.okmindmap.model.Slide;
 import com.okmindmap.model.User;
@@ -133,6 +134,11 @@ public interface MindmapDAO {
 
 	
 	public List<Map> getAllMaps(int page, int pagelimit, String searchfield, String search, String sort, boolean isAsc);
+	public List<Map> Sa_getAllMaps(int page, int pagelimit, String search);
+	public int Sa_countAllMaps(String search);
+	public List<Node> Sa_getMapNodes(int mapid);
+	public List<Repository> Sa_getMapFiles(int mapid);
+	public List<Node> Sa_getMapFileNodes(int mapid);
 	public List<Map> getUserMaps(int user_id);
 	public List<Map> getUserMaps(int user_id, Long createdFrom, Long createdTo);
 	public List<Map> getUserMaps(int userid, int page, int pagelimit,  String searchfield, String search, String sort, boolean isAsc);

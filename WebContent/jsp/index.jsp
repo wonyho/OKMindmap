@@ -234,7 +234,8 @@
 			const USER_POLICY = "${data.user_policy}";
 			var jMap;
 			var pageId;
-			var mapId = <c:out value="${data.mapId}"/>;
+			var mapId = ${data.mapId > 0 ? data.mapId : 0 };
+			console.log(${data.mapId > 0 ? data.mapId : 0 }, "OK OK OK");
 			var mapName = "<c:out value="${data.map.name}"/>";
 			var menu_isOwner = <c:out value="${data.isOwner ? 'true':'false'}"/>;
 			var menu_canEdit =  <c:out value="${data.canEdit ? 'true':'false'}"/>;
@@ -494,14 +495,19 @@
 						if(jMap.cfg.userId == 0){
 							okmLogin();
 						}
+						moodleDisconnectDetection();
 					}, 200);
 
 					if (jMap.rootNode.attributes["remixesOfMap"] != undefined) {
 						setMenuActions(false, new Array("remixMap", "mapOfRemixes"));
 					}
 
-					moodleDisconnectDetection();
+					
 					getNodeLisScore(jMap.getRootNode().getChildren());
+					
+					setTimeout(function(){
+						JinoUtil.closeEmbedDialog();
+					}, 1000);
 				}
 			}
 			$(document).ready( jinoMap_init );

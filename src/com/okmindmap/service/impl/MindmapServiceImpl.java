@@ -13,6 +13,7 @@ import com.okmindmap.dao.MindmapDAO;
 import com.okmindmap.model.Map;
 import com.okmindmap.model.MapTimeline;
 import com.okmindmap.model.Node;
+import com.okmindmap.model.Repository;
 import com.okmindmap.model.Slide;
 import com.okmindmap.model.User;
 import com.okmindmap.model.admin.RecommendList;
@@ -373,6 +374,26 @@ public class MindmapServiceImpl implements MindmapService {
 	public List<Map> getAllMaps(int page, int pagelimit, String searchfield,
 			String search, String sort, boolean isAsc) {
 		return this.mindmapDAO.getAllMaps(page, pagelimit, searchfield, search, sort, isAsc);
+	}
+	
+	public List<Map> Sa_getAllMaps(int page, int pagelimit, String search){
+		return this.mindmapDAO.Sa_getAllMaps(page, pagelimit, search);
+	}
+	
+	public int Sa_countAllMaps(String search){
+		return this.mindmapDAO.Sa_countAllMaps(search);
+	}
+	
+	public List<Node> Sa_getMapNodes(int mapid){
+		return this.mindmapDAO.Sa_getMapNodes(mapid);
+	}
+	
+	public List<Repository> Sa_getMapFiles(int mapid){
+		return this.mindmapDAO.Sa_getMapFiles(mapid);
+	}
+	
+	public List<Node> Sa_getMapFileNodes(int mapid){
+		return this.mindmapDAO.Sa_getMapFileNodes(mapid);
 	}
 
 	@Override

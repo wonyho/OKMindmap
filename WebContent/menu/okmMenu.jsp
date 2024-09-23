@@ -806,29 +806,63 @@ var translateMapContent = function(targetLanguage){
     		targetLanguage
     	]
     });
+	$.ajax({
+		type: 'GET',
+		url: '${pageContext.request.contextPath}/api/translate/aitranslate.do',
+		dataType: 'text',
+		success: function (key) {
+			const xhr = new XMLHttpRequest();
+		    xhr.withCredentials = true;
 
-    const xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+		    xhr.addEventListener('readystatechange', function () {
+		    	if (this.readyState === this.DONE) {
+		    		var text = JSON.parse(this.responseText.substring(1, this.responseText.length-1));
+			        translated = text.texts.split("</div>");
+			        tranidx = 0;
+			        jMap.getRootNode().setTranslatedText(translated[tranidx++].replace("<div>",""));
+			        setChildText(nodes);
+			        hasTranslated = true;
+			        alert("Your map was translated, will not be saved. \nPlease save as...");
+		    	}
+		    });
 
-    xhr.addEventListener('readystatechange', function () {
-    	if (this.readyState === this.DONE) {
-    		var text = JSON.parse(this.responseText.substring(1, this.responseText.length-1));
-	        translated = text.texts.split("</div>");
-	        tranidx = 0;
-	        jMap.getRootNode().setTranslatedText(translated[tranidx++].replace("<div>",""));
-	        setChildText(nodes);
-	        hasTranslated = true;
-	        alert("Your map was translated, will not be saved. \nPlease save as...");
-    	}
-    });
+		    xhr.open('POST', 'https://ai-translate.p.rapidapi.com/translates');
+		    xhr.setRequestHeader('content-type', 'application/json');
+		    xhr.setRequestHeader('X-RapidAPI-Key', key);
+		    xhr.setRequestHeader('X-RapidAPI-Host', 'ai-translate.p.rapidapi.com');
 
-    xhr.open('POST', 'https://ai-translate.p.rapidapi.com/translates');
-    xhr.setRequestHeader('content-type', 'application/json');
-    xhr.setRequestHeader('X-RapidAPI-Key', '32b9f2f3ecmshb5d365168f07daap1a8031jsn7152974fe46f');
-    xhr.setRequestHeader('X-RapidAPI-Host', 'ai-translate.p.rapidapi.com');
-
-    xhr.send(data);
-//end AI translator
+		    xhr.send(data);
+		},
+		error: function () {
+			alert("Translator server is busy, please try again later !");
+		}
+	}); 
+//end AI translator}
+	/* $.ajax({
+		type: 'GET',
+		url: '${pageContext.request.contextPath}/api/translate/aitranslate.do',
+		dataType: 'json',
+		contentType: 'application/json; charset=utf-8',
+		data: {
+			'q': data,
+		}, 
+		success: function (data) {
+			if(data == false){
+				alert("Translator server is busy, please try again later !");
+			}else{
+				translated = data.texts.split("</div>");
+		        tranidx = 0;
+		        jMap.getRootNode().setTranslatedText(translated[tranidx++].replace("<div>",""));
+		        setChildText(nodes);
+		        hasTranslated = true;
+		        alert("Your map was translated, will not be saved. \nPlease save as...");
+			}
+	        
+		},
+		error: function () {
+			alert("Translator server is busy, please try again later !");
+		}
+	});  */
 }
 
 var getChildText = function(nodes){

@@ -718,7 +718,7 @@ jMindMapNode.prototype.setYoutubeVideo = function(playUrl, width, height ) {
 	var re = /v[=\/]([^&]*)/ig;
 	var match = re.exec(playUrl);
 	if (match) {
-		var url = 'http://www.youtube.com/embed/' + match[1];
+		var url = 'https://www.youtube.com/embed/' + match[1];
 
 		var html = '<iframe src="' + url + '" frameborder="0" allowtransparency="true" width="' + width + '"  height="' + height + '" scrolling="no"></iframe>';
 		this.setHyperlink(playUrl);

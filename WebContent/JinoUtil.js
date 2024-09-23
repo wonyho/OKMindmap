@@ -419,7 +419,11 @@ JinoUtil = (function () {
 		}
 	}
 	
-	
+	Util.closeEmbedDialog = function(){
+		if(window.self !== window.top){
+			JinoUtil.closeDialog();
+		}
+	}
 	return Util;
 })();
 

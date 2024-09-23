@@ -8,6 +8,7 @@ import com.okmindmap.dao.MindmapDAO;
 import com.okmindmap.model.Map;
 import com.okmindmap.model.MapTimeline;
 import com.okmindmap.model.Node;
+import com.okmindmap.model.Repository;
 import com.okmindmap.model.Slide;
 import com.okmindmap.model.User;
 import com.okmindmap.model.admin.RecommendList;
@@ -35,6 +36,11 @@ public interface MindmapService {
 	
 //	public List<Map> getAllMaps();
 	public List<Map> getAllMaps(int page, int pagelimit, String searchfield, String search, String sort, boolean isAsc);
+	public List<Map> Sa_getAllMaps(int page, int pagelimit, String search);
+	public int Sa_countAllMaps(String search);
+	public List<Node> Sa_getMapNodes(int mapid);
+	public List<Repository> Sa_getMapFiles(int mapid);
+	public List<Node> Sa_getMapFileNodes(int mapid);
 	public List<Map> getUserMaps(int userid);
 	public List<Map> getUserMaps(int userid, int page, int pagelimit,  String searchfield, String search, String sort, boolean isAsc);
 	public List<Share> getMyShares(int userid);

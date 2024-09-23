@@ -2,6 +2,7 @@
 <%@ page import="java.util.Locale" %>
 <%@ page import="org.springframework.web.servlet.support.RequestContextUtils" %>
 <%@ page import="com.okmindmap.configuration.Configuration"%>
+<%@ page import="com.okmindmap.api.shorturl.OkmmSite"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -28,12 +29,28 @@
 	
 	Locale locale = RequestContextUtils.getLocale(request);
 	request.setAttribute("locale", locale);
-
 %>
 
 
+<c:choose>
+	<c:when test="${cookie['locale'].getValue() == 'en'}">
+		<c:set var="locale" value="en"/>
+	</c:when>
+	<c:when test="${cookie['locale'].getValue() == 'es'}">
+		<c:set var="locale" value="es"/>
+	</c:when>
+	<c:when test="${cookie['locale'].getValue() == 'vi'}">
+		<c:set var="locale" value="vi"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="locale" value="ko"/>
+	</c:otherwise>
+</c:choose>
+
+<fmt:setLocale value="${locale}"/>
+
 <!doctype html>
-<html lang="${locale.language}">
+<html lang="${locale}">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -221,7 +238,7 @@
 			    <c:otherwise>
 			    	
 			    	<div class="dropdown">
-			    	<a  class="dropbtn btn rounded-15 px-5 bg-light leading-175p h-30 mr-3" style="display: inline-flex;">
+			    	<a  class="dropbtn btn rounded-15 bg-light leading-175p ml-2" style="display: inline-flex; height: 40px;">
 				    	<img onclick="myFunction2()" class="dropb" src="${pageContext.request.contextPath}/user/avatar.do?userid=<c:out value='${user.id}' />" style="width: 28px; height: 28px;" class="d-block mx-auto rounded-circle">
 				    	<span onclick="myFunction2()" class="dropb" style="padding: 0px 0 0 10px;"><c:out value="${user.firstname}" /></span>
 			    	</a>
@@ -264,11 +281,11 @@
             
             <div class="dropdown ml-2">
 						<button class="btn btn-outline-light dropdown-toggle after-content-none text-dark bg-light rounded-15 " type="button" data-toggle="dropdown">
-							<c:if test='${locale.language =="en"}'><img class="img_lang mr-1" style="width: 20px; height: 14px;vertical-align: initial; display: unset !important;" src="${pageContext.request.contextPath}/ribbonmenu/icons/normal/usa.png"></c:if>
-							<c:if test='${locale.language =="es"}'><img class="img_lang mr-1" style="width: 20px; height: 14px;vertical-align: initial; display: unset !important;" src="${pageContext.request.contextPath}/ribbonmenu/icons/normal/Espanol.svg"></c:if>
-							<c:if test='${locale.language =="ko"}'><img class="img_lang mr-1" style="width: 20px; height: 14px;vertical-align: initial; display: unset !important;" src="${pageContext.request.contextPath}/ribbonmenu/icons/normal/korea.webp"></c:if>
-							<c:if test='${locale.language =="vi"}'><img class="img_lang mr-1" style="width: 20px; height: 14px;vertical-align: initial; display: unset !important;" src="${pageContext.request.contextPath}/ribbonmenu/icons/normal/vietnam.webp"></c:if>
-							<spring:message code="menu.select.lang.${locale.language}" text="English" /></a>
+							<c:if test='${locale =="en"}'><img class="img_lang mr-1" style="width: 20px; height: 14px;vertical-align: initial; display: unset !important;" src="${pageContext.request.contextPath}/ribbonmenu/icons/normal/usa.png"></c:if>
+							<c:if test='${locale =="es"}'><img class="img_lang mr-1" style="width: 20px; height: 14px;vertical-align: initial; display: unset !important;" src="${pageContext.request.contextPath}/ribbonmenu/icons/normal/Espanol.svg"></c:if>
+							<c:if test='${locale =="ko"}'><img class="img_lang mr-1" style="width: 20px; height: 14px;vertical-align: initial; display: unset !important;" src="${pageContext.request.contextPath}/ribbonmenu/icons/normal/korea.webp"></c:if>
+							<c:if test='${locale =="vi"}'><img class="img_lang mr-1" style="width: 20px; height: 14px;vertical-align: initial; display: unset !important;" src="${pageContext.request.contextPath}/ribbonmenu/icons/normal/vietnam.webp"></c:if>
+							<spring:message code="menu.select.lang.${locale}" text="English" />
 						</button>
 						<div class="dropdown-menu dropdown-menu-right">
 							<a class="dropdown-item" href="#" onclick="changeLanguage('en')">

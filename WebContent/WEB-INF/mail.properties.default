@@ -4,8 +4,8 @@
 
 ## GMail
 mail.host=smtp.gmail.com
-mail.username=
-mail.password=
+mail.username=intube.corp@gmail.com
+mail.password=qohtphnenxjjabvz
 mail.port=465
 mail.protocol=smtps
 
