@@ -1,7 +1,7 @@
 # Ant properties for building the okmindmap
 
 #appserver.home=
-appserver.home=/media/tvdung/WDSSD/Intube/Tomcat7
+appserver.home=/usr/local/Tomcat7
 
 # for Tomcat 5 use $appserver.home}/server/lib
 # for Tomcat 6 use $appserver.home}/lib
