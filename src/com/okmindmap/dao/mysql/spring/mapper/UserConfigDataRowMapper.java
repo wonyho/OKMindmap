@@ -16,7 +16,6 @@ public class UserConfigDataRowMapper extends RowMapperBase implements RowMapper 
 		data.setId(rs.getInt("id"));
 		data.setUserid(rs.getInt("userid"));
 		data.setFieldid(rs.getInt("fieldid"));
-		data.setData(rs.getString("data"));
 		data.setFieldname(rs.getString("field"));
 		data.setData(rs.getString("data"));
 		

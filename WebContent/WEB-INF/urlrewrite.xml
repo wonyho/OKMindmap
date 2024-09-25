@@ -79,6 +79,16 @@
 		<to>/export?format=$1&amp;id=$2</to>
 	</rule>
 	
+	<rule>
+		<from>/s/(.*)</from>
+		<to>/shorturl/open.do?id=$1</to>
+	</rule>
+	
+	<rule>
+		<from>/sadmin</from>
+		<to>/sa/index.do</to>
+	</rule>
+	
 	<!-- http://www.whalesharkwebsites.com/2010/02/04/301-permanent-redirect-with-tomcat-howto/ -->
 	<!-- 
     <rule>

@@ -81,7 +81,7 @@
 			} else page++;
 //			'key': 'AIzaSyCqhNd5-z2hAqEK1hSozv32AkFV88_TFjs'
 			$.ajax({
-				type: 'GET',
+				/* type: 'GET',
 				url: 'https://www.googleapis.com/youtube/v3/search',
 				dataType: 'json',
 				data: {
@@ -93,6 +93,13 @@
 					'part': 'snippet',
 					'safeSearch': 'strict',
 					'maxResults': 25,
+					'pageToken': pageToken
+				}, */
+				type: 'GET',
+				url: '${pageContext.request.contextPath}/api/search/video.do',
+				dataType: 'json',
+				data: {
+					'q': searchInput,
 					'pageToken': pageToken
 				},
 				success: function (data) {

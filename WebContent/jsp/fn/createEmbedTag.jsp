@@ -56,7 +56,7 @@
             var passwd = (EmbedTag_trim($('#password').val()).length > 0) ? "&password=" + EmbedTag_trim($('#password').val()) : "";
             var d = parent.document;
             var url_prefix = d.location.protocol + '//' + d.location.host + parent.jMap.cfg.contextPath;
-            var code = '<iframe src="' + url_prefix + '/map/' + mapKey + '?m=' + onMenu + '&g=' + onGoogle + passwd + '" width="' + $('#width').val() + '" height="' + $('#height').val() + '" frameborder="0"  ></iframe>';
+            var code = '<iframe id="iframe-map-' + mapKey + '" src="' + url_prefix + '/map/' + mapKey + '?m=' + onMenu + '&g=' + onGoogle + passwd + '" width="' + $('#width').val() + '" height="' + $('#height').val() + '" frameborder="0"  ></iframe>';
 
             var textarea = $('textarea#embedcode')[0];
             textarea.value = code;

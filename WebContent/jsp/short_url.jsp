@@ -135,7 +135,6 @@
 				<button type="submit" class="btn btn-primary"><spring:message code='presentation.create_url' /></button>
 			</div>
 		</form>
-
 		<textarea id="url_presentation" style="resize: none; height: 90px;" readonly class="form-control text-monospace bg-light shadow-none mt-3" rows="4"></textarea>
 	</div>
 </body>

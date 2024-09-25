@@ -36,6 +36,8 @@ public interface UserDAO {
 	
 	public List<NodeFunctions> getNodeFunctions()  throws DataAccessException;
 	public List<UserConfigData> getUserConfigData(int userid)  throws DataAccessException;
+	public UserConfigData getUserConfigData(int userid, String key)  throws DataAccessException;
+	public boolean sureConfigFieldExisted(String field, String descript) throws DataAccessException;
 	public int setUserConfigData(int userid, String field, String data)  throws DataAccessException;
 	public int insertUserConfigData(int userid, int fieldid, String data)  throws DataAccessException;
 	public int deleteUserConfigData(int userid)  throws DataAccessException;

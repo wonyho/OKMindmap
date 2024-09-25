@@ -2,6 +2,7 @@ package com.okmindmap.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @SuppressWarnings("serial")
@@ -28,8 +29,11 @@ public class Map implements Serializable {
 	private String short_url;
 	private int recommend_point;
 	
+	private HashMap<String, Integer> counter;
+	
 	public Map() {
 		this.nodes = new ArrayList<Node>();
+		this.counter = new HashMap<String, Integer>();
 	}
 	
 	public String getEmail() {
@@ -204,5 +208,12 @@ public class Map implements Serializable {
 
 	public void setRecommend_point(int recommend_point) {
 		this.recommend_point = recommend_point;
+	}
+	
+	public void setCounter(String key, int val) {
+		this.counter.put(key, val);
+	}
+	public int getCounter(String key) {
+		return this.counter.get(key);
 	}
 }

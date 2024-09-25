@@ -17,15 +17,20 @@ import com.okmindmap.model.Map;
 import com.okmindmap.model.Node;
 import com.okmindmap.model.User;
 import com.okmindmap.service.MindmapService;
+import com.okmindmap.service.RepositoryService;
 import com.okmindmap.util.EscapeUnicode;
 
 public class MapOfRemixesAction extends BaseAction {
 
 	private MindmapService mindmapService;
-	private String basePath;
+	private RepositoryService repositoryService;
 
 	public void setMindmapService(MindmapService mindmapService) {
 		this.mindmapService = mindmapService;
+	}
+	
+	public void setRepositoryService(RepositoryService repositoryService) {
+		this.repositoryService = repositoryService;
 	}
 	
 	private Node createNode(String text) {
@@ -50,7 +55,7 @@ public class MapOfRemixesAction extends BaseAction {
 			Map map = mindmapService.getMap(attrNode.getMapId());
 			if(map != null) {
 				Node tempNode = createNode(map.getName());
-				tempNode.setLink(this.basePath + "/map/" + map.getKey());
+				tempNode.setLink(this.repositoryService.baseUrl() + "/map/" + map.getKey());
 				int newNodeId = this.mindmapService.newNodeAfterSibling(mapOfRemixId, tempNode, node.getIdentity(), null);
 				
 				Node newNode = mindmapService.getNode(newNodeId, false);
@@ -74,24 +79,7 @@ public class MapOfRemixesAction extends BaseAction {
 		Map mapOfRemixes = null;
 		String url = "";
 		
-		if(user != null && map != null && owner != null && owner.getId() == user.getId()) {
-			String scheme = request.getScheme();
-			String domain = request.getServerName();
-			int port = request.getServerPort();
-			this.basePath = scheme + "://" + domain;
-			
-			if("http".equalsIgnoreCase(scheme) && 80 != port) {
-				this.basePath += ":" + String.valueOf(port);
-			} else if("https".equalsIgnoreCase(scheme) && port != 443) {
-				this.basePath += ":" + String.valueOf(port);
-			}
-			
-			if(!this.basePath.endsWith("/") && !request.getContextPath().startsWith("/")) {
-				this.basePath += "/";
-			}
-			
-			this.basePath += request.getContextPath();
-			
+		if(user != null && map != null && owner != null && owner.getId() == user.getId()) {			
 			if(!"".equals(mapOfRemixesId)) {
 				mapOfRemixes = mindmapService.getMap(Integer.parseInt(mapOfRemixesId));
 			}
@@ -103,7 +91,7 @@ public class MapOfRemixesAction extends BaseAction {
 				mapOfRemixes = mindmapService.getMap(newMapId);
 				
 				Node mapOfRemixesRoot = mapOfRemixes.getNodes().get(0);
-				mapOfRemixesRoot.setLink(this.basePath + "/map/"+map.getKey());
+				mapOfRemixesRoot.setLink(this.repositoryService.baseUrl() + "/map/"+map.getKey());
 				
 				Attribute mapOfRemixesRootAttr = new Attribute();
 				mapOfRemixesRootAttr.setNodeId(mapOfRemixesRoot.getId());
@@ -140,7 +128,7 @@ public class MapOfRemixesAction extends BaseAction {
 			
 			this.updateNodes(map.getId(), mapOfRemixes.getId(), mapOfRemixes.getNodes().get(0));
 			
-			url =this.basePath + "/map/"+mapOfRemixes.getKey();
+			url = request.getScheme() + "://" + this.repositoryService.baseUrl() + "/map/"+mapOfRemixes.getKey();
 		}
 		
 		StringBuffer buffer = new StringBuffer();

@@ -1404,38 +1404,6 @@
 			title: "<spring:message code='menu.mindmap.newnodemap'/>"
 		});
 	}
-
-	var moodleDisconnectDetection = function(){
-		var root = jMap.getRootNode();
-		if (root.attributes == undefined) root.attributes = {};
-
-		if(root.attributes['moodleUrl'] && root.attributes['moodleCourseId']) {
-			
-		
-			if($('#title_icon') != null && $('#title_icon') != undefined){
-				$('#title_icon').attr('src', "${pageContext.request.contextPath}/menu/icons/moodle.png");
-				$('#title_icon').attr('style', 'margin-top: 6px; width: 24px; height: 24px;');
-			}
-
-			root.setHasMoodleExecute();
-			root.setHyperlink(root.attributes['moodleUrl'] + "course/view.php?id=" + root.attributes['moodleCourseId']);
-		}else{
-			// root.setHyperlink(null); 
-			if(root.hyperlink != null)
-			if(root.hyperlink.attr().href.indexOf("/map/") < 0 ){
-				root.setHyperlink(null);
-			}
-		}
-		
-		setNodeMoodleIcon(root.getChildren());
-		jMap.layoutManager.updateTreeHeightsAndRelativeYOfWholeMap();
-		jMap.layoutManager.layout(true);
-
-		if (!jMap.cfg.mapOwner) return;
-		if(root.attributes['moodleUrl'] && !root.attributes['moodleCourseId']) {
-			alert('This map has lost connection to Moodle. Please restore your connection!');
-		}
-	}
 	
 	var setNodeMoodle = function(){
 		for (var index = 0; index < Object.keys(jMap.nodes).length; index++) {
@@ -1443,49 +1411,6 @@
 			var is_moodle = Object.keys(n.attributes).join('_').indexOf('moodle');
 			if(is_moodle >= 0) {
 				n.setHasMoodleExecute();
-			}
-		}
-	}
-	
-	var setNodeMoodleIcon = function(nodes){
-		for(var i=0;i < nodes.length; i++){
-			var n = nodes[i];
-			var is_moodle = Object.keys(n.attributes).join('_').indexOf('moodle');
-			if(is_moodle >= 0) {
-				n.setHasMoodleExecute();
-			}	
-			var ns = nodes[i].getChildren();
-			if(ns.length > 0){
-				setNodeMoodleIcon(ns);
-			}
-		}  
-	}
-	
-	var getNodeLisScore = function(nodes){
-		for(var i=0;i < nodes.length; i++){
-			var n = nodes[i];
-			if(n.hyperlink != null){
-				var is_lti = n.hyperlink.attr().href.indexOf('launch.do');
-				if(is_lti >= 0) {
-					$.ajax({
-					      type: 'POST',
-					      url: jMap.cfg.contextPath + '/mindmap/lisScore.do',
-					      data: {node : n.getID(), map : mapId},
-					      dataType: "text",
-					      success: function(data) { 
-					    	  var arr = data.split('::');
-					    	  if(arr[1] != "-1.0"){
-					    		  var node = jMap.getNodeById(arr[0]);
-						    	  node.setScore(arr[1]);
-					    	  }
-					      }
-					});
-				}
-			}
-				
-			var ns = nodes[i].getChildren();
-			if(ns.length > 0){
-				getNodeLisScore(ns);
 			}
 		}
 	}

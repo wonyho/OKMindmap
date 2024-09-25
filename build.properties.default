@@ -1,0 +1,26 @@
+# Ant properties for building the okmindmap
+
+#appserver.home=
+appserver.home=/media/tvdung/WDSSD/Intube/Tomcat7
+
+# for Tomcat 5 use $appserver.home}/server/lib
+# for Tomcat 6 use $appserver.home}/lib
+appserver.lib=${appserver.home}/lib
+
+deploy.path=${appserver.home}/webapps
+
+
+# ant task \uc911\uc5d0 okmindmap-reload, okmindmap-start, okmindmap-stop \ub4f1 
+# tomcat \uc5d0 \uad00\ub828\ub41c task \ub97c \uc2e4\ud589\ud558\uae30 \uc704\ud574\uc11c manager \ub97c \ub4f1\ub85d\ud574\uc57c \ud55c\ub2e4.
+# [tomcat \ub514\ub809\ud1a0\ub9ac]/conf/tomcat-user.xml \ud30c\uc77c\uc5d0 \uc0ac\uc6a9\uc790\ub97c \ucd94\uac00\ud55c\ub2e4.
+tomcat.manager.url=http://localhost:8080/manager
+tomcat.manager.username=admin
+tomcat.manager.password=wlsgns2
+
+# ant task \uc911 DB \uad00\ub828 task(db-create-table, db-drop-tables-db-load-data)\ub97c
+# \uc2e4\ud589\ud558\uae30 \uc704\ud574 DB Connection \uc815\ubcf4\ub97c \uc124\uc815\ud55c\ub2e4.
+jdbc.database=mysql
+jdbc.driverClassName=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/okmindmap
+jdbc.username=okmindmap
+jdbc.password=38EswjwdczeMS5CW

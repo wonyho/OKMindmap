@@ -40,6 +40,8 @@ public interface UserService {
 
 	public List<NodeFunctions> getNodeFunctions();
 	public List<UserConfigData> getUserConfigData(int userid)  throws Exception;
+	public boolean sureConfigFieldExisted(String field, String descript)  throws Exception;
+	public UserConfigData getUserConfigData(int userid, String key)  throws Exception;
 	public void setUserConfigData(int userid, String field, String data)  throws Exception;
 	
 	public boolean isUsernameExist(String username);

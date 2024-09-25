@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   		http://www.springframework.org/schema/context
+	   		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	   		http://www.springframework.org/schema/tx
+	   		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	   		http://www.springframework.org/schema/mvc
+	   		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	   		http://www.springframework.org/schema/aop
+	   		http://www.springframework.org/schema/aop/spring-aop-3-0.xsd">
+	
+	<bean name="/sa/index.do" class="com.okmindmap.api.sa.SuperAdminDashBoard">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/sa/googleapi.do" class="com.okmindmap.api.sa.GoogleApiManager">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/sa/translateapi.do" class="com.okmindmap.api.sa.TranslateApiManager">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/sa/uploadbackup.do" class="com.okmindmap.api.sa.UploadFileBackup">
+		<property name="userService" ref="userService"/>
+		<property name="mindmapService" ref="mindmapService"/>
+		<property name="okmindmapService" ref="okmindmapService"/>
+		<property name="repositoryService" ref="repositoryService"/>
+	</bean>
+	<bean name="/api/search/image.do" class="com.okmindmap.api.search.GoogleImageSearch">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/api/search/video.do" class="com.okmindmap.api.search.GoogleVideoSearch">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/api/search/text.do" class="com.okmindmap.api.search.GoogleTextSearch">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/api/translate/aitranslate.do" class="com.okmindmap.api.translate.AiTranslator">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/api/okmcloud/setting.do" class="com.okmindmap.api.backup.SetOkmCloudInfo">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="/api/okmcloud/info.do" class="com.okmindmap.api.backup.GetOkmCloudInfo">
+		<property name="userService" ref="userService"/>
+	</bean>
+</beans>

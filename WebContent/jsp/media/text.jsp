@@ -31,8 +31,8 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/theme/dist/assets/css/app.css?v=<%=updateTime%>">
 	<script src="${pageContext.request.contextPath}/theme/dist/assets/js/app.js?v=<%=updateTime%>"></script>
 
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-	<script src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+	<script src="https://www.google.com/jsapi"></script>
 
 	<title></title>
 
@@ -111,9 +111,8 @@
 			else {
 				$('#loadmore').prop('disabled', true);
 			}
-
 			$.ajax({
-				type: 'GET',
+				/* type: 'GET',
 				url: 'https://www.googleapis.com/customsearch/v1',
 				dataType: 'json',
 				data: {
@@ -122,8 +121,14 @@
 					'q': document.getElementById("searchInput").value,
 					'num': 8,
 					'start': page * 8 + 1
-				},
-
+				}, */
+				type: 'GET',
+				url: '${pageContext.request.contextPath}/api/search/text.do',
+				dataType: 'json',
+				data: {
+					'q': document.getElementById("searchInput").value,
+					'page': page > 0 ? page : 0
+				}, 
 				success: function (response) {
 					var contentDiv = document.getElementById('dataview-content');
 					if (page == 0) contentDiv.innerHTML = '';

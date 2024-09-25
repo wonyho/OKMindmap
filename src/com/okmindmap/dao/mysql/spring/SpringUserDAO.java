@@ -325,6 +325,15 @@ public class SpringUserDAO extends SpringDAOBase implements UserDAO {
 
 		return getJdbcTemplate().query(query, new Object[] { userid }, new UserConfigDataRowMapper());
 	}
+	
+	public UserConfigData getUserConfigData(int userid, String key) throws DataAccessException {
+		String query = "SELECT d.id, d.userid, d.fieldid, d.data, f.field " + "FROM mm_user_config_data d "
+				+ "JOIN mm_user_config_field f ON f.id = d.fieldid " + "WHERE d.userid = ? AND f.field = ?";
+
+		List<UserConfigData> rows = getJdbcTemplate().query(query, new Object[] { userid, key }, new UserConfigDataRowMapper());
+		if(rows.size() > 0) return rows.get(0);
+		return null;
+	}
 
 	public List<NodeFunctions> getNodeFunctions() throws DataAccessException {
 		String query = "SELECT f.id, f.field " + "FROM mm_user_config_field f WHERE 1 ";
@@ -346,6 +355,15 @@ public class SpringUserDAO extends SpringDAOBase implements UserDAO {
 
 		String query = "UPDATE mm_user_config_data SET data = ? WHERE userid = ? AND fieldid = ?";
 		return getJdbcTemplate().update(query, new Object[] { data, userid, fieldid });
+	}
+	
+	public boolean sureConfigFieldExisted(String field, String descript) throws DataAccessException{
+		int rows = getJdbcTemplate().queryForObject("SELECT count(*) FROM mm_user_config_field WHERE field = ? ",
+				new Object[] { field }, Integer.class);
+		if(rows == 1) return true;
+		String query = "INSERT INTO mm_user_config_field (field, descript)" + " VALUES (?, ?)";
+		return 0 < getJdbcTemplate().update(query,
+				new Object[] {field,  descript});
 	}
 
 	public int insertUserConfigData(int userid, int fieldid, String data) throws DataAccessException {
