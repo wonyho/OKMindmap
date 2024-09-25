@@ -1,1 +1,1 @@
-#using for Docker mode only
+#use for Docker mode only
