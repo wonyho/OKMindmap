@@ -90,7 +90,7 @@
 				</c:when>
 				<c:otherwise>
 					<a href="http://api.qrserver.com/v1/create-qr-code/?data=<%=short_url%>" target="_blank">
-						<img class="img-thumbnail" style="width: 250px; height: 250px;" src="http://api.qrserver.com/v1/create-qr-code/?data=<%=short_url%>">
+						<img class="img-thumbnail" style="width: 250px; height: 250px;" src="http://api.qrserver.com/v1/create-qr-code/?data=https://<%=short_url%>">
 					</a>
 					<h4 class="my-3" style='font-family: "Times New Roman", Times, serif; font-size: 39px;' ><%=short_url%></h4>
 				</c:otherwise>

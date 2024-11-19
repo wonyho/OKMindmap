@@ -2,3 +2,10 @@
 /okmindmap.war
 /WebContent/WEB-INF/classes
 /build/*
+
+build.properties
+build.xml
+/WebContent/WEB-INF/jdbc.properties
+/WebContent/WEB-INF/mail.properties
+/docker/okmindmap.tar
+/docker/okmindmapdb.tar
