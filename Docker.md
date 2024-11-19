@@ -7,6 +7,6 @@
 
 3. Install docker services to your host
 
-4. Run ./runner.sh to start Okmindmap services with default data. 
+4. Run ./runner_install.sh to start Okmindmap services with default data. 
 
 5. Login service with default account and enjoy !
