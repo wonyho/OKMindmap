@@ -817,7 +817,7 @@ var translateMapContent = function(targetLanguage){
 		    xhr.addEventListener('readystatechange', function () {
 		    	if (this.readyState === this.DONE) {
 		    		var text = JSON.parse(this.responseText.substring(1, this.responseText.length-1));
-			        translated = text.texts.split("</div>");
+			        translated = text.texts[0].split("</div>");
 			        tranidx = 0;
 			        jMap.getRootNode().setTranslatedText(translated[tranidx++].replace("<div>",""));
 			        setChildText(nodes);
