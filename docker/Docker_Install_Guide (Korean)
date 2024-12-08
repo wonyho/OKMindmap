@@ -1,0 +1,112 @@
+OkMindmap 설치 및 실행 매뉴얼
+이 매뉴얼은 제공된 Docker 이미지와 GitHub 저장소를 사용하여 OkMindmap 서비스를 설정하고 실행하는 절차를 단계별로 설명합니다.
+
+1. 설치 환경
+Docker: 컨테이너 환경을 지원하기 위한 도구.
+GitHub 저장소: OkMindmap 애플리케이션 코드를 포함.
+제공된 Docker 이미지:
+okmindmapdb.tar: MySQL 데이터베이스 환경.
+okmindmap.tar: Tomcat 애플리케이션 서버 환경.
+2. 설치 준비
+2.1 GitHub 저장소 복제
+OkMindmap 소스 코드를 로컬 환경으로 복제합니다:
+
+bash
+Copy code
+git clone https://github.com/wonyho/OKMindmap.git
+cd OKMindmap
+2.2 Docker 설치
+Docker가 설치되어 있지 않은 경우 Docker 공식 사이트에서 설치합니다.
+
+2.3 제공된 Docker 이미지 준비
+제공된 이미지 파일(okmindmapdb.tar, okmindmap.tar)을 OKMindmap/docker/ 디렉토리에 복사합니다.
+
+3. 설정 파일 준비
+3.1 데이터베이스 설정 (jdbc.properties)
+WebContent/WEB-INF/jdbc.properties.default를 복사하여 jdbc.properties를 생성:
+bash
+Copy code
+cp WebContent/WEB-INF/jdbc.properties.default WebContent/WEB-INF/jdbc.properties
+jdbc.properties를 열어 데이터베이스 연결 정보를 수정:
+properties
+Copy code
+jdbc.url=jdbc:mysql://localhost:3306/okmindmap
+jdbc.username=root
+jdbc.password=yourpassword
+3.2 메일 서버 설정 (mail.properties)
+WebContent/WEB-INF/mail.properties.default를 복사하여 mail.properties를 생성:
+bash
+Copy code
+cp WebContent/WEB-INF/mail.properties.default WebContent/WEB-INF/mail.properties
+mail.properties를 열어 메일 서버 정보를 수정:
+properties
+Copy code
+mail.smtp.host=smtp.gmail.com
+mail.smtp.port=587
+mail.smtp.username=your-email@gmail.com
+mail.smtp.password=your-email-password
+4. 컨테이너 실행
+4.1 초기 실행
+runner_install.sh 스크립트를 실행하여 MySQL 및 Tomcat 컨테이너를 생성하고 실행합니다:
+bash
+Copy code
+./runner_install.sh
+스크립트의 주요 작업:
+MySQL 데이터베이스 컨테이너(okmindmapdb) 실행.
+Tomcat 애플리케이션 컨테이너(okmindmap) 실행.
+4.2 실행 확인
+컨테이너 상태 확인:
+
+bash
+Copy code
+docker ps
+okmindmapdb와 okmindmap 컨테이너가 실행 중인지 확인.
+브라우저에서 서비스 접속:
+
+plaintext
+Copy code
+http://localhost:8080/
+또는:
+
+plaintext
+Copy code
+http://localhost:8080/okmm
+5. 컨테이너 관리
+5.1 MySQL 데이터베이스 재실행
+MySQL 데이터베이스 컨테이너를 재실행하려면 runner_mysql.sh를 실행합니다:
+
+bash
+Copy code
+./runner_mysql.sh
+5.2 Tomcat 애플리케이션 재실행
+Tomcat 컨테이너를 재실행하려면 runner_tomcat.sh를 실행합니다:
+
+bash
+Copy code
+./runner_tomcat.sh
+6. 문제 해결
+6.1 컨테이너 로그 확인
+컨테이너 실행 중 문제가 발생하면 로그를 확인합니다:
+
+bash
+Copy code
+docker logs okmindmap
+docker logs okmindmapdb
+6.2 MySQL 초기화 확인
+MySQL 초기화 스크립트(/tmp/db/auto.sh)가 제대로 실행되었는지 확인합니다:
+
+bash
+Copy code
+docker exec -it okmindmapdb bash
+ls /tmp/db/
+6.3 설정 파일 변경
+설정 파일(jdbc.properties, mail.properties) 변경 후 Tomcat 컨테이너를 재시작합니다:
+
+bash
+Copy code
+./runner_tomcat.sh
+7. 요약
+GitHub에서 코드를 복제하고 설정 파일을 수정.
+runner_install.sh를 실행하여 MySQL과 Tomcat 컨테이너 생성.
+브라우저에서 OkMindmap 서비스 확인.
+필요시 runner_mysql.sh 또는 runner_tomcat.sh를 사용하여 컨테이너 재실행.
