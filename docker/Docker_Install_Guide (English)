@@ -1,0 +1,89 @@
+OkMindmap Installation and Execution Manual
+This manual explains the step-by-step process of setting up and running the OkMindmap service using the provided Docker images and GitHub repository.
+
+1. Prerequisites
+	•	Docker: A tool for containerized environments.
+	•	GitHub Repository: Contains the OkMindmap application code.
+	•	Provided Docker Images:
+	◦	okmindmapdb.tar: Docker image for the MySQL database.
+	◦	okmindmap.tar: Docker image for the Tomcat application server.
+
+2. Preparation
+2.1 Clone the GitHub Repository
+Clone the OkMindmap source code to your local environment:
+bash
+git clone https://github.com/wonyho/OKMindmap.git cd OKMindmap
+
+2.2 Install Docker
+If Docker is not installed, download and install it from the Docker official website.
+
+2.3 Prepare the Provided Docker Images
+Place the provided image files (okmindmapdb.tar, okmindmap.tar) into the OKMindmap/docker/ directory.
+
+3. Prepare Configuration Files
+3.1 Database Configuration (jdbc.properties)
+	1	Copy the default file to create jdbc.properties:
+bash 
+cp WebContent/WEB-INF/jdbc.properties.default WebContent/WEB-INF/jdbc.properties  
+	2	Open the file and configure the database connection:properties 
+jdbc.url=jdbc:mysql://localhost:3306/okmindmap 
+jdbc.username=root jdbc.password=yourpassword  
+3.2 Mail Server Configuration (mail.properties)
+	1	Copy the default file to create mail.properties:
+bash 
+cp WebContent/WEB-INF/mail.properties.default WebContent/WEB-INF/mail.properties  
+	2	Open the file and configure the mail server settings:properties 
+mail.smtp.host=smtp.gmail.com 
+mail.smtp.port=587 
+mail.smtp.username=your-email@gmail.com 
+mail.smtp.password=your-email-password  
+
+4. Run the Containers
+4.1 Initial Setup
+	1	Run the runner_install.sh script to create and start the MySQL and Tomcat containers:
+bash 
+./runner_install.sh  
+	2	Key tasks performed by the script:
+	◦	Create and start the MySQL container (okmindmapdb).
+	◦	Create and start the Tomcat container (okmindmap).
+4.2 Verify the Execution
+	1	Check the status of the containers: 
+bash 
+docker ps  
+	◦	Ensure both okmindmapdb and okmindmap containers are running.
+	2	Open your browser and access the service: plaintext 
+http://localhost:8080/   
+or: 
+http://localhost:8080/okmm  
+
+5. Manage the Containers
+5.1 Restart the MySQL Container
+If you need to restart the MySQL container, run runner_mysql.sh:
+bash
+./runner_mysql.sh
+5.2 Restart the Tomcat Container
+If you need to restart the Tomcat container, run runner_tomcat.sh:
+bash
+./runner_tomcat.sh
+
+6. Troubleshooting
+6.1 Check Container Logs
+If there are issues during execution, check the logs for details:
+bash
+docker logs okmindmap docker logs okmindmapdb
+6.2 Verify MySQL Initialization
+Ensure the MySQL initialization script (/tmp/db/auto.sh) has executed correctly:
+bash
+docker exec -it okmindmapdb bash ls /tmp/db/
+6.3 Update Configuration Files
+If you need to update jdbc.properties or mail.properties, modify the files and restart the Tomcat container:
+bash
+./runner_tomcat.sh
+
+7. Summary
+	1	Clone the GitHub repository and modify the configuration files.
+	2	Run runner_install.sh to initialize the MySQL and Tomcat containers.
+	3	Verify the service in your browser.
+	4	Use runner_mysql.sh or runner_tomcat.sh for container management.
+
+This manual should make the installation and execution process straightforward. Let me know if you have further questions or need additional clarification! 😊
