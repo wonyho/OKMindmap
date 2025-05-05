@@ -79,26 +79,27 @@ public class MapofmapMindmapAction extends BaseAction {
 			//2011. 6. 22 **** getMap 으로 가져와서 입력하는 경우 한글이 깨졌다. 그래서 여기에서 다시 써준다.
 			//rootNode.setText(mapofmapText);
 			// 자신의 맵 목록을 노드로 추가한다
-			String scheme = request.getScheme();
-			String domain = request.getServerName();
-			int port = request.getServerPort();
-			String basePath = scheme + "://" + domain;
-			
-			if("http".equalsIgnoreCase(scheme) && 80 != port) {
-				basePath += ":" + String.valueOf(port);
-			} else if("https".equalsIgnoreCase(scheme) && port != 443) {
-				basePath += ":" + String.valueOf(port);
-			}
-			
-			if(!basePath.endsWith("/") && !request.getContextPath().startsWith("/")) {
-				basePath += "/";
-			}
-			
-			basePath += request.getContextPath();
+//			String scheme = request.getScheme();
+//			String domain = request.getServerName();
+//			int port = request.getServerPort();
+//			String basePath = scheme + "://" + domain;
+//			
+//			if("http".equalsIgnoreCase(scheme) && 80 != port) {
+//				basePath += ":" + String.valueOf(port);
+//			} else if("https".equalsIgnoreCase(scheme) && port != 443) {
+//				basePath += ":" + String.valueOf(port);
+//			}
+//			
+//			if(!basePath.endsWith("/") && !request.getContextPath().startsWith("/")) {
+//				basePath += "/";
+//			}
+//			
+//			basePath += request.getContextPath();
 			
 			for(Map listMap : myMapList){
 				Node tempNode = createNode(listMap.getName());
-				tempNode.setLink(basePath + "/map/" + listMap.getKey());
+//				tempNode.setLink(basePath + "/map/" + listMap.getKey());
+				tempNode.setLink("/map/" + listMap.getKey());
 				this.mindmapService.newNodeAfterSibling(newMapId, tempNode, rootNode.getIdentity(), null);
 				//rootNode.addChild(tempNode);
 			}
