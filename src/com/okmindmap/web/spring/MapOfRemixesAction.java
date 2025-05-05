@@ -55,7 +55,8 @@ public class MapOfRemixesAction extends BaseAction {
 			Map map = mindmapService.getMap(attrNode.getMapId());
 			if(map != null) {
 				Node tempNode = createNode(map.getName());
-				tempNode.setLink(this.repositoryService.baseUrl() + "/map/" + map.getKey());
+//				tempNode.setLink(this.repositoryService.baseUrl() + "/map/" + map.getKey());
+				tempNode.setLink("/map/" + map.getKey());
 				int newNodeId = this.mindmapService.newNodeAfterSibling(mapOfRemixId, tempNode, node.getIdentity(), null);
 				
 				Node newNode = mindmapService.getNode(newNodeId, false);
@@ -91,7 +92,8 @@ public class MapOfRemixesAction extends BaseAction {
 				mapOfRemixes = mindmapService.getMap(newMapId);
 				
 				Node mapOfRemixesRoot = mapOfRemixes.getNodes().get(0);
-				mapOfRemixesRoot.setLink(this.repositoryService.baseUrl() + "/map/"+map.getKey());
+				//mapOfRemixesRoot.setLink(this.repositoryService.baseUrl() + "/map/"+map.getKey());
+				mapOfRemixesRoot.setLink("/map/"+map.getKey());
 				
 				Attribute mapOfRemixesRootAttr = new Attribute();
 				mapOfRemixesRootAttr.setNodeId(mapOfRemixesRoot.getId());
